@@ -133,8 +133,9 @@ Objetivo:
 - GitHub Pages funcionando;
 - checklist final aprovado.
 
+Status: concluído.
+
 ## Depois da v1.0.0
 
-Não planejar features futuras antes da v1.0.0.
-
-Ideias futuras devem ir para uma seção separada, sem interferir no escopo fechado.
+O escopo fechado da `v1.0.0` foi concluído. Ideias futuras devem ir para uma seção separada e não
+alteram o lançamento final.

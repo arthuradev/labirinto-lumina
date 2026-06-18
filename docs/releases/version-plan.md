@@ -107,6 +107,8 @@ Entrega:
 - GitHub Pages funcionando;
 - checklist final aprovado.
 
+Status: publicado.
+
 ## Regras
 
 - Não criar tag se validações falharem.

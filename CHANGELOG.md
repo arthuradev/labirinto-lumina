@@ -8,7 +8,28 @@ O formato segue a ideia de manter um histórico legível por humanos, organizado
 
 ### Planejado
 
-- Release v1.0.0.
+- Nenhuma mudança planejada neste marco final.
+
+## [v1.0.0] — 2026-06-18
+
+### Adicionado
+
+- Release notes finais em `docs/releases/v1.0.0.md`.
+- Checklist final em `docs/releases/final-checklist-v1.0.0.md`.
+- Revisão final de originalidade em `docs/legal/originality-review-v1.0.0.md`.
+
+### Alterado
+
+- Versão do pacote atualizada para `1.0.0`.
+- README ajustado para estado final, com link público de jogo e documentação final.
+- Roadmap, GSD, SDD e documentação de arquitetura atualizados para refletir o fechamento do escopo `v1.0.0`.
+
+### Validado
+
+- `npm run check` completo.
+- Build final de GitHub Pages.
+- Smoke test no navegador via Playwright.
+- Smoke test na página publicada.
 
 ## [v0.9.0] — 2026-06-18
 

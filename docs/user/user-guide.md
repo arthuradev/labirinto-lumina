@@ -6,6 +6,8 @@ Labirinto Lumina é um jogo arcade de labirinto.
 
 Você controla uma luz dentro de circuitos escuros. O objetivo é coletar fragmentos luminosos, evitar sentinelas e completar todas as fases.
 
+Versão atual: `v1.0.0`.
+
 ## Como jogar online
 
 O jogo está disponível via GitHub Pages:

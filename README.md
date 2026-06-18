@@ -8,13 +8,13 @@
 
 O objetivo do projeto é testar até onde uma IA consegue planejar, estruturar, documentar, implementar, validar, versionar e publicar um jogo completo quando recebe uma arquitetura profissional, escopo fechado, regras claras e checkpoints de qualidade.
 
-O jogo será uma experiência web simples e divertida: o jogador controla uma pequena luz dentro de labirintos escuros, coleta fragmentos luminosos, evita sentinelas, ativa nós de pulso e tenta completar todas as fases.
+O jogo é uma experiência web simples e divertida: o jogador controla uma pequena luz dentro de labirintos escuros, coleta fragmentos luminosos, evita sentinelas, ativa nós de pulso e tenta completar todas as fases.
 
 ## Transparência sobre IA
 
 Este projeto foi planejado para ser desenvolvido integralmente por IA, usando **GPT-5.5 em capacidade máxima**, sob direção, revisão e curadoria humana.
 
-A IA será responsável por:
+A IA foi responsável por:
 
 - criar a estrutura do projeto;
 - escrever o código;
@@ -26,7 +26,7 @@ A IA será responsável por:
 - publicar o projeto;
 - validar qualidade antes de cada marco.
 
-A direção humana será responsável por:
+A direção humana foi responsável por:
 
 - definir intenção criativa;
 - aprovar troca de etapas;
@@ -81,7 +81,7 @@ npm install
 npm run dev
 ```
 
-Também haverá um inicializador simples para Windows:
+Também há um inicializador simples para Windows:
 
 ```text
 Jogar.bat
@@ -112,16 +112,17 @@ O comando principal executa typecheck, lint, verificação de formatação, test
 Status atual:
 
 ```text
-v0.9.0 — Release candidate
+v1.0.0 — Versão final
 ```
 
 O projeto já possui tela inicial funcional em Canvas, game loop, máquina de estados,
 três fases originais navegáveis, movimento em grid, colisão com paredes, fragmentos de luz,
 nós de pulso, pontuação, progressão entre fases, sentinelas originais com comportamentos simples,
 tela de controles, pausa, game over, vitória, HUD revisado, sons originais via Web Audio,
-mute com `M`, high score local, CI fortalecida, smoke test no navegador e deploy via GitHub Pages.
+mute com `M`, high score local, CI fortalecida, smoke test no navegador, deploy via GitHub Pages e
+release pública `v1.0.0`.
 
-Esta versão é um release candidate. A revisão final e o release público `v1.0.0` ainda serão feitos.
+O escopo fechado da versão `v1.0.0` está concluído.
 
 ## Documentação principal
 
@@ -132,11 +133,13 @@ Esta versão é um release candidate. A revisão final e o release público `v1.
 - [`ROADMAP.md`](ROADMAP.md) — caminho até v1.0.0
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — commits, branches e validações
 - [`CHANGELOG.md`](CHANGELOG.md) — histórico de versões
-- [`docs/releases/v0.9.0.md`](docs/releases/v0.9.0.md) — notas do release candidate
-- [`docs/legal/originality-review-v0.9.0.md`](docs/legal/originality-review-v0.9.0.md) — revisão de originalidade do RC
+- [`docs/releases/v1.0.0.md`](docs/releases/v1.0.0.md) — notas da versão final
+- [`docs/releases/final-checklist-v1.0.0.md`](docs/releases/final-checklist-v1.0.0.md) — checklist final
+- [`docs/legal/originality-review-v1.0.0.md`](docs/legal/originality-review-v1.0.0.md) — revisão final de originalidade
 
 ## Licença
 
-O código será licenciado sob MIT.
+O código é licenciado sob MIT.
 
-Assets visuais e sonoros deverão ser próprios, gerados para o projeto ou CC0 devidamente documentados. Nenhum asset externo pode ser adicionado sem revisão de origem e licença.
+Os recursos visuais são desenhados em Canvas e os sons são sintetizados em código via Web Audio.
+Nenhum asset externo foi adicionado ao projeto.

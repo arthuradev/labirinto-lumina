@@ -1,6 +1,6 @@
 {
   "name": "labirinto-lumina",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Jogo web arcade original de labirinto, luz e sentinelas.",

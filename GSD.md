@@ -6,7 +6,7 @@ A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e p
 
 ## Missão atual
 
-Executar a **Etapa 9 — Testes, CI, GitHub Pages e release candidate** do projeto **Labirinto Lumina**.
+Executar a **Etapa 10 — Revisão final e lançamento** do projeto **Labirinto Lumina**.
 
 ## Regra de autonomia
 
@@ -377,3 +377,24 @@ Fora do escopo desta etapa:
 Revisar tudo, fechar documentação, criar release final.
 
 Tag: `v1.0.0`
+
+Entregas esperadas:
+
+- documentação final revisada;
+- README em estado final;
+- CHANGELOG atualizado com `v1.0.0`;
+- checklist final registrado;
+- revisão final de originalidade registrada;
+- validações locais completas;
+- GitHub Actions passando;
+- GitHub Pages funcionando;
+- tag `v1.0.0`;
+- release final pública no GitHub.
+
+Fora do escopo desta etapa:
+
+- novas features;
+- novas fases;
+- novos assets;
+- mudanças de gameplay não exigidas por falha crítica;
+- mudança de stack.

@@ -81,7 +81,7 @@ O jogo deve ter identidade própria baseada em luz, energia, circuitos, ruído e
 
 ## 7. Escopo fechado da v1.0.0
 
-A versão `v1.0.0` deve conter:
+A versão `v1.0.0` contém:
 
 - tela inicial;
 - tela de controles;
@@ -183,7 +183,7 @@ Responsabilidades:
 
 Inimigo original.
 
-Tipos planejados:
+Tipos:
 
 - Vigia: persegue diretamente;
 - Eco: tenta interceptar;
@@ -191,7 +191,7 @@ Tipos planejados:
 
 ## 11. Regras de pontuação
 
-Pontuação planejada:
+Pontuação:
 
 ```text
 Fragmento de luz: +10
@@ -228,7 +228,7 @@ O jogo deve ser:
 - leve;
 - bonito o suficiente para GitHub/portfólio.
 
-Controles planejados:
+Controles:
 
 ```text
 Setas ou WASD: mover

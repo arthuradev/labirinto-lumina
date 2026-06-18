@@ -34,7 +34,7 @@ A lógica do jogo não deve depender diretamente do Canvas.
 
 Isso permite testar regras principais sem navegador e evita acoplamento entre renderização e gameplay.
 
-## 4. Estrutura planejada de código
+## 4. Estrutura final de código
 
 ```text
 src/
@@ -46,11 +46,9 @@ src/
 │   └── GameConfig.ts
 ├── core/
 │   ├── types.ts
-│   ├── constants.ts
 │   ├── grid.ts
 │   ├── direction.ts
-│   ├── vector.ts
-│   └── random.ts
+│   └── vector.ts
 ├── entities/
 │   ├── Player.ts
 │   ├── Sentinel.ts
@@ -62,7 +60,8 @@ src/
 │   ├── CollisionSystem.ts
 │   ├── ScoreSystem.ts
 │   ├── EnemyAISystem.ts
-│   ├── LevelSystem.ts
+│   ├── SentinelCollisionSystem.ts
+│   ├── HighScoreSystem.ts
 │   └── AudioSystem.ts
 ├── rendering/
 │   ├── CanvasRenderer.ts
@@ -78,12 +77,11 @@ src/
 │   └── index.ts
 ├── screens/
 │   ├── StartScreen.ts
+│   ├── ControlsScreen.ts
 │   ├── PauseScreen.ts
 │   ├── GameOverScreen.ts
-│   └── VictoryScreen.ts
-├── assets/
-│   ├── audio/
-│   └── README.md
+│   ├── VictoryScreen.ts
+│   └── index.ts
 └── styles/
     └── main.css
 ```
@@ -155,7 +153,8 @@ Responsabilidades:
 - colisão;
 - pontuação;
 - IA de inimigos;
-- fases;
+- colisão com sentinelas;
+- high score local;
 - áudio.
 
 Sistemas devem ser testáveis isoladamente quando possível.
@@ -200,7 +199,7 @@ Responsabilidades:
 - vitória;
 - instruções.
 
-## 6. Game loop planejado
+## 6. Game loop
 
 ```text
 requestAnimationFrame
@@ -270,13 +269,17 @@ sistemas manipularem DOM diretamente
 renderização alterar regra de jogo
 ```
 
-## 9. Testes planejados
+## 9. Testes
 
 ```text
-tests/unit/grid.test.ts
+tests/unit/level.test.ts
 tests/unit/collision.test.ts
 tests/unit/scoring.test.ts
 tests/unit/enemy-ai.test.ts
+tests/unit/sentinel-collision.test.ts
+tests/unit/game-session.test.ts
+tests/unit/audio.test.ts
+tests/unit/high-score.test.ts
 tests/e2e/game-smoke.spec.ts
 ```
 

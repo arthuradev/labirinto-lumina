@@ -80,7 +80,7 @@ Sons devem ser:
 
 Proibido criar sons que imitem efeitos sonoros de jogos comerciais.
 
-Na versão `v0.8.0`, os efeitos sonoros são sintetizados em código via Web Audio. Nenhum arquivo de
+Na versão `v1.0.0`, os efeitos sonoros são sintetizados em código via Web Audio. Nenhum arquivo de
 áudio externo foi adicionado ao projeto.
 
 ## 7. Visual
@@ -96,7 +96,7 @@ Evitar:
 
 ## 8. Revisão antes de release
 
-Antes de `v0.9.0` e `v1.0.0`, revisar:
+Antes de releases relevantes, revisar:
 
 - nomes;
 - mapas;
@@ -107,3 +107,5 @@ Antes de `v0.9.0` e `v1.0.0`, revisar:
 - release notes.
 
 Se algo parecer confundível, substituir.
+
+A revisão final da `v1.0.0` está registrada em `docs/legal/originality-review-v1.0.0.md`.

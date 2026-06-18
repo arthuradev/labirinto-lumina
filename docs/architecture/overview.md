@@ -61,7 +61,7 @@ Game
 - `levels/` guarda dados de fase.
 - `core/` contém tipos e funções puras.
 
-Na versão `v0.9.0`, jogador, input, movimento, colisão, três fases navegáveis, coleta, pontuação,
+Na versão `v1.0.0`, jogador, input, movimento, colisão, três fases navegáveis, coleta, pontuação,
 sentinelas, progressão real entre fases, tela de controles, pausa, game over, vitória e HUD revisado
 já existem. Áudio original via Web Audio, mute com `M` e high score local também estão implementados.
 O projeto também possui smoke test end-to-end com Playwright, CI fortalecida e publicação via GitHub
