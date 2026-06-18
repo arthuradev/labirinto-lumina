@@ -21,7 +21,7 @@ export const getScreenContent = (state: GameState): ScreenContent => {
         status: 'Colete todos os fragmentos de luz.',
         action: 'Pressione Enter ou clique para iniciar.',
         details: [
-          'Nós de pulso dão pontos e ativam energia temporária.',
+          'Atravesse três circuitos originais em sequência.',
           'Setas ou WASD movem a Lumina. P pausa a partida.',
         ],
       };
@@ -29,10 +29,10 @@ export const getScreenContent = (state: GameState): ScreenContent => {
       return {
         state,
         title: 'Circuito ativo',
-        subtitle: 'Movimento em grid habilitado.',
-        status: 'Colete fragmentos e nós de pulso.',
+        subtitle: 'Movimento em grid e sentinelas ativos.',
+        status: 'Colete fragmentos, use pulsos e avance entre fases.',
         action: 'Pressione P para pausar.',
-        details: ['Todos os fragmentos encerram a fase.', 'Sentinelas entram na Etapa 5.'],
+        details: ['Todos os fragmentos encerram a fase.', 'Enter avança após cada circuito.'],
       };
     case 'paused':
       return {
@@ -50,25 +50,25 @@ export const getScreenContent = (state: GameState): ScreenContent => {
         subtitle: 'Todos os fragmentos foram coletados.',
         status: 'Bônus por vidas restantes aplicado.',
         action: 'Pressione Enter para avançar.',
-        details: ['Na versão final, este fluxo avançará entre fases.'],
+        details: ['Se ainda houver circuitos, a próxima fase será carregada.'],
       };
     case 'game-over':
       return {
         state,
         title: 'Fim de jogo',
         subtitle: 'A luz se dissipou.',
-        status: 'Derrota básica preparada.',
+        status: 'Vidas esgotadas pelas sentinelas.',
         action: 'Pressione Enter ou R para voltar ao início.',
-        details: ['Sentinelas vão acionar perda de vidas na Etapa 5.'],
+        details: ['A campanha reinicia a partir do primeiro circuito.'],
       };
     case 'victory':
       return {
         state,
         title: 'Vitória',
-        subtitle: 'Circuito Aurora estabilizado.',
-        status: 'Fim de fase básico funcionando.',
+        subtitle: 'Todos os circuitos foram estabilizados.',
+        status: 'As três fases atuais foram concluídas.',
         action: 'Pressione Enter ou R para jogar novamente.',
-        details: ['Mais fases entram na Etapa 6.'],
+        details: ['Novas telas e polimento de fluxo entram na Etapa 7.'],
       };
   }
 };

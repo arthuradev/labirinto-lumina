@@ -6,6 +6,8 @@ export const drawHud = (
   context: CanvasRenderingContext2D,
   snapshot: GameSnapshot,
   level: LevelDefinition,
+  currentLevelNumber: number,
+  totalLevelCount: number,
   score: ScoreState,
   pulseRemainingSeconds: number,
   sentinelCount: number,
@@ -23,11 +25,15 @@ export const drawHud = (
 
   context.fillStyle = '#b6cdca';
   context.font = '500 13px system-ui, sans-serif';
-  context.fillText(
-    `${level.name} · fragmentos ${score.fragmentsCollected}/${score.fragmentsTotal} · vidas ${score.lives} · sentinelas ${sentinelCount}`,
-    20,
-    44,
-  );
+  const statusLine = [
+    `fase ${currentLevelNumber}/${totalLevelCount}`,
+    level.name,
+    `fragmentos ${score.fragmentsCollected}/${score.fragmentsTotal}`,
+    `vidas ${score.lives}`,
+    `sentinelas ${sentinelCount}`,
+  ].join(' · ');
+
+  context.fillText(statusLine, 20, 44);
 
   context.textAlign = 'right';
   context.fillStyle = '#72e0d8';

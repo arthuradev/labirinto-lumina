@@ -50,6 +50,11 @@ export class ScoreSystem {
     this.#state.score += this.#state.lives * this.options.levelCompleteLifeBonus;
   }
 
+  startLevel(fragmentsTotal: number): void {
+    this.#state.fragmentsCollected = 0;
+    this.#state.fragmentsTotal = fragmentsTotal;
+  }
+
   loseLife(): void {
     this.#state.lives = Math.max(0, this.#state.lives - 1);
   }

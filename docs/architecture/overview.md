@@ -42,7 +42,7 @@ Game
 - `Game` coordena.
 - `GameLoop` controla tempo.
 - `GameStateMachine` controla telas/estados.
-- `GameSession` mantém o estado da fase atual.
+- `GameSession` mantém o estado da campanha e da fase atual.
 - `InputSystem` traduz teclas em intenções de jogo.
 - `MovementSystem` move o jogador em grid.
 - `CollisionSystem` bloqueia paredes e limites.
@@ -57,9 +57,9 @@ Game
 - `levels/` guarda dados de fase.
 - `core/` contém tipos e funções puras.
 
-Na versão `v0.5.0`, jogador, input, movimento, colisão, primeira fase navegável, coleta,
-pontuação, fim de fase básico e sentinelas já existem. Áudio, high score e progressão real entre
-múltiplas fases permanecem planejados para etapas futuras.
+Na versão `v0.6.0`, jogador, input, movimento, colisão, três fases navegáveis, coleta, pontuação,
+sentinelas e progressão real entre fases já existem. Áudio, high score, telas completas e publicação
+via GitHub Pages permanecem planejados para etapas futuras.
 
 ## O que deve permanecer simples
 

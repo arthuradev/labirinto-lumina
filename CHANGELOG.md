@@ -8,9 +8,24 @@ O formato segue a ideia de manter um histórico legível por humanos, organizado
 
 ### Planejado
 
-- Três fases originais.
 - GitHub Pages.
 - Release v1.0.0.
+
+## [v0.6.0] — 2026-06-18
+
+### Adicionado
+
+- Fases originais `Malha Prisma` e `Nucleo Obsidiana`.
+- Sequência `LEVELS` com três fases jogáveis: `Circuito Aurora`, `Malha Prisma` e `Nucleo Obsidiana`.
+- Progressão entre fases após coletar todos os fragmentos do circuito atual.
+- Preservação de pontos e vidas durante a campanha.
+- Reinício do contador de fragmentos ao carregar a próxima fase.
+- HUD com fase atual e total de fases.
+- Testes unitários para validação básica de todos os mapas e progressão de `GameSession`.
+
+### Observação
+
+Esta versão ainda não implementa telas completas, áudio, high score ou publicação via GitHub Pages.
 
 ## [v0.5.0] — 2026-06-18
 

@@ -29,15 +29,15 @@ Jogar.bat
 
 ## Objetivo
 
-Na versão atual, já é possível navegar pela primeira fase, coletar fragmentos, ativar nós de pulso,
-evitar sentinelas e concluir a fase ao coletar todos os fragmentos.
+Na versão atual, já é possível navegar por três fases, coletar fragmentos, ativar nós de pulso,
+evitar sentinelas e completar a campanha atual ao concluir todos os circuitos.
 
-Objetivo planejado para a versão final:
+Objetivo:
 
-- Colete todos os fragmentos de luz.
+- Colete todos os fragmentos de luz em cada fase.
 - Evite sentinelas.
 - Use nós de pulso para sobreviver.
-- Complete as três fases.
+- Complete as três fases em sequência.
 
 ## Movimento
 

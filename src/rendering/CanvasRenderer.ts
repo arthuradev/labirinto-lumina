@@ -175,6 +175,8 @@ export class CanvasRenderer {
       this.#context,
       snapshot,
       playfield.level,
+      playfield.currentLevelNumber,
+      playfield.totalLevelCount,
       playfield.score,
       playfield.player.pulseRemainingSeconds,
       playfield.sentinels.length,
@@ -184,7 +186,11 @@ export class CanvasRenderer {
     if (snapshot.state === 'paused') {
       this.#drawPauseOverlay();
     } else if (snapshot.state === 'level-complete') {
-      this.#drawLevelCompleteOverlay(playfield.score.score);
+      this.#drawLevelCompleteOverlay(
+        playfield.score.score,
+        playfield.currentLevelNumber,
+        playfield.totalLevelCount,
+      );
     }
   }
 
@@ -217,7 +223,11 @@ export class CanvasRenderer {
     this.#context.fillText('Pressione P para continuar.', this.#width / 2, this.#height / 2 + 28);
   }
 
-  #drawLevelCompleteOverlay(score: number): void {
+  #drawLevelCompleteOverlay(
+    score: number,
+    currentLevelNumber: number,
+    totalLevelCount: number,
+  ): void {
     this.#context.fillStyle = 'rgba(6, 16, 21, 0.68)';
     this.#context.fillRect(0, 0, this.#width, this.#height);
 
@@ -229,12 +239,18 @@ export class CanvasRenderer {
 
     this.#context.fillStyle = GAME_CONFIG.colors.text;
     this.#context.font = '600 20px system-ui, sans-serif';
-    this.#context.fillText(`Pontuação: ${score}`, this.#width / 2, this.#height / 2 + 8);
+    this.#context.fillText(
+      `Fase ${currentLevelNumber}/${totalLevelCount} · Pontuação: ${score}`,
+      this.#width / 2,
+      this.#height / 2 + 8,
+    );
 
     this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
     this.#context.font = '500 16px system-ui, sans-serif';
     this.#context.fillText(
-      'Pressione Enter para ver a vitória.',
+      currentLevelNumber < totalLevelCount
+        ? 'Pressione Enter para abrir o próximo circuito.'
+        : 'Pressione Enter para ver a vitória.',
       this.#width / 2,
       this.#height / 2 + 46,
     );

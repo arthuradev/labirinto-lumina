@@ -82,6 +82,8 @@ Objetivo:
 - implementar progressão;
 - documentar formato de fase.
 
+Status: concluído.
+
 ### v0.7.0 — Telas, HUD e UX
 
 Objetivo:

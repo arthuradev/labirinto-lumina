@@ -23,6 +23,14 @@ Cada fase deve conter:
 }
 ```
 
+A sequência jogável atual fica em `LEVELS` e contém:
+
+```text
+level-01 Circuito Aurora
+level-02 Malha Prisma
+level-03 Nucleo Obsidiana
+```
+
 ## Tiles atuais
 
 ```text
@@ -58,7 +66,7 @@ Toda fase deve:
 - ser navegável sem atravessar paredes;
 - ter dificuldade progressiva.
 
-## Validação planejada
+## Validação atual
 
 Testes devem verificar:
 
@@ -69,8 +77,5 @@ Testes devem verificar:
 - nós de pulso alcançáveis;
 - sentinelas em tiles livres e alcançáveis;
 - mapa retangular;
-
-Validações planejadas para etapas futuras:
-
 - quantidade mínima de fragmentos;
-- nenhuma linha com largura incorreta.
+- progressão de dificuldade por fase.

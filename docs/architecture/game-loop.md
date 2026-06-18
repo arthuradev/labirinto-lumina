@@ -56,9 +56,10 @@ Exemplo conceitual:
 delta = min(delta, maxDelta)
 ```
 
-Na versão `v0.5.0`, `GameLoop` limita o delta time, atualiza a `GameSession` quando o estado é
-`playing` e chama o renderizador a cada frame. Movimento, colisão, coleta, pontuação, IA inimiga e
-colisão com sentinelas já passam por sistemas próprios.
+Na versão `v0.6.0`, `GameLoop` limita o delta time, atualiza a `GameSession` quando o estado é
+`playing` e chama o renderizador a cada frame. Movimento, colisão, coleta, pontuação, IA inimiga,
+colisão com sentinelas e progressão entre fases já passam por sistemas próprios ou pela sessão de
+jogo.
 
 ## Regras
 

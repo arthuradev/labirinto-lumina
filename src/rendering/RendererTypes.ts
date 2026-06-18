@@ -17,6 +17,8 @@ export interface ScreenContent {
 
 export interface PlayfieldRenderState {
   readonly level: LevelDefinition;
+  readonly currentLevelNumber: number;
+  readonly totalLevelCount: number;
   readonly player: Player;
   readonly collectibles: readonly Collectible[];
   readonly powerNodes: readonly PowerNode[];

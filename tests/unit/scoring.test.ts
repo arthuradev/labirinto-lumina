@@ -45,6 +45,21 @@ describe('ScoreSystem', () => {
     expect(scoreSystem.state.score).toBe(310);
   });
 
+  it('reinicia progresso de fragmentos ao iniciar nova fase', () => {
+    const scoreSystem = new ScoreSystem({
+      initialLives: 3,
+      fragmentsTotal: 1,
+      levelCompleteLifeBonus: 100,
+    });
+
+    scoreSystem.addCollectiblePoints(10);
+    scoreSystem.startLevel(3);
+
+    expect(scoreSystem.state.score).toBe(10);
+    expect(scoreSystem.state.fragmentsCollected).toBe(0);
+    expect(scoreSystem.state.fragmentsTotal).toBe(3);
+  });
+
   it('identifica game over quando vidas acabam', () => {
     const scoreSystem = new ScoreSystem({
       initialLives: 2,

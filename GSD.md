@@ -6,7 +6,7 @@ A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e p
 
 ## Missão atual
 
-Executar a **Etapa 5 — Sentinelas** do projeto **Labirinto Lumina**.
+Executar a **Etapa 6 — Fases completas** do projeto **Labirinto Lumina**.
 
 ## Regra de autonomia
 
@@ -278,6 +278,24 @@ Fora do escopo desta etapa:
 Criar três fases originais e progressão de dificuldade.
 
 Tag: `v0.6.0`
+
+Entregas esperadas:
+
+- três fases originais declaradas em `src/levels/`;
+- sequência de fases registrada em estrutura própria;
+- progressão entre fases após conclusão;
+- pontuação e vidas preservadas durante a campanha;
+- HUD indicando fase atual e total de fases;
+- validação básica de mapas para todas as fases;
+- documentação do formato de fase atualizada.
+
+Fora do escopo desta etapa:
+
+- telas completas e fluxo visual final;
+- áudio;
+- high score local;
+- publicação via GitHub Pages;
+- release candidate.
 
 ### Etapa 7 — Telas, HUD e UX
 

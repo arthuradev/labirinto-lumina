@@ -3,7 +3,7 @@ import { createCollectibles, type Collectible } from '../entities/Collectible';
 import { createPlayer, resetPlayer, type Player } from '../entities/Player';
 import { createPowerNodes, type PowerNode } from '../entities/PowerNode';
 import { createSentinels, resetSentinel, type Sentinel } from '../entities/Sentinel';
-import { LEVEL_01, type LevelDefinition } from '../levels';
+import { LEVELS, type LevelDefinition } from '../levels';
 import { CollectionSystem } from '../systems/CollectionSystem';
 import { CollisionSystem } from '../systems/CollisionSystem';
 import { EnemyAISystem } from '../systems/EnemyAISystem';
@@ -14,6 +14,8 @@ import { GAME_CONFIG } from './GameConfig';
 
 export interface GameSessionSnapshot {
   readonly level: LevelDefinition;
+  readonly currentLevelNumber: number;
+  readonly totalLevelCount: number;
   readonly player: Player;
   readonly collectibles: readonly Collectible[];
   readonly powerNodes: readonly PowerNode[];
@@ -25,19 +27,14 @@ export interface GameSessionSnapshot {
 
 export type GameSessionOutcome = 'level-complete' | 'game-over' | null;
 
+export interface GameSessionOptions {
+  readonly levels?: readonly LevelDefinition[];
+}
+
 export class GameSession {
-  readonly #level = LEVEL_01;
-  readonly #player = createPlayer(this.#level.playerStart, this.#level.tileSize);
-  readonly #collectibles = createCollectibles(this.#level.collectibles);
-  readonly #powerNodes = createPowerNodes(this.#level.powerNodes);
-  readonly #sentinels = createSentinels(this.#level.sentinels, this.#level.tileSize);
+  readonly #levels: readonly LevelDefinition[];
   readonly #collisionSystem = new CollisionSystem();
   readonly #collectionSystem = new CollectionSystem();
-  readonly #scoreSystem = new ScoreSystem({
-    initialLives: GAME_CONFIG.player.initialLives,
-    fragmentsTotal: this.#level.collectibles.length,
-    levelCompleteLifeBonus: GAME_CONFIG.scoring.levelCompleteLifeBonus,
-  });
   readonly #movementSystem = new MovementSystem(
     this.#collisionSystem,
     GAME_CONFIG.player.speedTilesPerSecond,
@@ -51,7 +48,52 @@ export class GameSession {
     GAME_CONFIG.sentinels.disabledSecondsAfterPulse,
   );
 
+  readonly #scoreSystem: ScoreSystem;
+
+  #levelIndex = 0;
+  #level: LevelDefinition;
+  #player: Player;
+  #collectibles: Collectible[];
+  #powerNodes: PowerNode[];
+  #sentinels: Sentinel[];
   #outcome: GameSessionOutcome = null;
+
+  constructor(options: GameSessionOptions = {}) {
+    this.#levels = options.levels ?? LEVELS;
+    const firstLevel = this.#levels[0];
+
+    if (!firstLevel) {
+      throw new Error('A sessao de jogo precisa de pelo menos uma fase.');
+    }
+
+    this.#level = firstLevel;
+    this.#player = createPlayer(this.#level.playerStart, this.#level.tileSize);
+    this.#collectibles = createCollectibles(this.#level.collectibles);
+    this.#powerNodes = createPowerNodes(this.#level.powerNodes);
+    this.#sentinels = createSentinels(this.#level.sentinels, this.#level.tileSize);
+    this.#scoreSystem = new ScoreSystem({
+      initialLives: GAME_CONFIG.player.initialLives,
+      fragmentsTotal: this.#level.collectibles.length,
+      levelCompleteLifeBonus: GAME_CONFIG.scoring.levelCompleteLifeBonus,
+    });
+  }
+
+  hasNextLevel(): boolean {
+    return this.#levelIndex < this.#levels.length - 1;
+  }
+
+  advanceToNextLevel(): boolean {
+    if (this.#outcome !== 'level-complete' || !this.hasNextLevel()) {
+      return false;
+    }
+
+    this.#levelIndex += 1;
+    this.#loadCurrentLevel();
+    this.#scoreSystem.startLevel(this.#level.collectibles.length);
+    this.#outcome = null;
+
+    return true;
+  }
 
   requestDirection(direction: MovementDirection): void {
     this.#movementSystem.requestDirection(this.#player, direction);
@@ -87,6 +129,8 @@ export class GameSession {
   snapshot(): GameSessionSnapshot {
     return {
       level: this.#level,
+      currentLevelNumber: this.#levelIndex + 1,
+      totalLevelCount: this.#levels.length,
       player: this.#player,
       collectibles: this.#collectibles,
       powerNodes: this.#powerNodes,
@@ -136,5 +180,19 @@ export class GameSession {
     for (const sentinel of this.#sentinels) {
       resetSentinel(sentinel, this.#level.tileSize);
     }
+  }
+
+  #loadCurrentLevel(): void {
+    const level = this.#levels[this.#levelIndex];
+
+    if (!level) {
+      throw new Error(`Fase ${this.#levelIndex + 1} nao encontrada na sequencia.`);
+    }
+
+    this.#level = level;
+    this.#player = createPlayer(this.#level.playerStart, this.#level.tileSize);
+    this.#collectibles = createCollectibles(this.#level.collectibles);
+    this.#powerNodes = createPowerNodes(this.#level.powerNodes);
+    this.#sentinels = createSentinels(this.#level.sentinels, this.#level.tileSize);
   }
 }

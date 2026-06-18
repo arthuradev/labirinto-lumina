@@ -116,7 +116,12 @@ export class Game {
       this.#stateMachine.transitionTo('playing');
       this.#render();
     } else if (this.#stateMachine.state === 'level-complete') {
-      this.#stateMachine.transitionTo('victory');
+      if (this.#session?.advanceToNextLevel()) {
+        this.#stateMachine.transitionTo('playing');
+      } else {
+        this.#stateMachine.transitionTo('victory');
+      }
+
       this.#render();
     } else if (this.#stateMachine.state === 'victory' || this.#stateMachine.state === 'game-over') {
       this.#restart();
