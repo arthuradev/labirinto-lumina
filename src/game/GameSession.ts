@@ -1,12 +1,15 @@
 import type { MovementDirection } from '../core/direction';
 import { createCollectibles, type Collectible } from '../entities/Collectible';
-import { createPlayer, type Player } from '../entities/Player';
+import { createPlayer, resetPlayer, type Player } from '../entities/Player';
 import { createPowerNodes, type PowerNode } from '../entities/PowerNode';
+import { createSentinels, resetSentinel, type Sentinel } from '../entities/Sentinel';
 import { LEVEL_01, type LevelDefinition } from '../levels';
 import { CollectionSystem } from '../systems/CollectionSystem';
 import { CollisionSystem } from '../systems/CollisionSystem';
+import { EnemyAISystem } from '../systems/EnemyAISystem';
 import { MovementSystem } from '../systems/MovementSystem';
 import { ScoreSystem, type ScoreState } from '../systems/ScoreSystem';
+import { SentinelCollisionSystem } from '../systems/SentinelCollisionSystem';
 import { GAME_CONFIG } from './GameConfig';
 
 export interface GameSessionSnapshot {
@@ -14,6 +17,7 @@ export interface GameSessionSnapshot {
   readonly player: Player;
   readonly collectibles: readonly Collectible[];
   readonly powerNodes: readonly PowerNode[];
+  readonly sentinels: readonly Sentinel[];
   readonly score: ScoreState;
   readonly isLevelComplete: boolean;
   readonly isGameOver: boolean;
@@ -26,6 +30,8 @@ export class GameSession {
   readonly #player = createPlayer(this.#level.playerStart, this.#level.tileSize);
   readonly #collectibles = createCollectibles(this.#level.collectibles);
   readonly #powerNodes = createPowerNodes(this.#level.powerNodes);
+  readonly #sentinels = createSentinels(this.#level.sentinels, this.#level.tileSize);
+  readonly #collisionSystem = new CollisionSystem();
   readonly #collectionSystem = new CollectionSystem();
   readonly #scoreSystem = new ScoreSystem({
     initialLives: GAME_CONFIG.player.initialLives,
@@ -33,8 +39,16 @@ export class GameSession {
     levelCompleteLifeBonus: GAME_CONFIG.scoring.levelCompleteLifeBonus,
   });
   readonly #movementSystem = new MovementSystem(
-    new CollisionSystem(),
+    this.#collisionSystem,
     GAME_CONFIG.player.speedTilesPerSecond,
+  );
+  readonly #enemyAISystem = new EnemyAISystem(
+    this.#collisionSystem,
+    GAME_CONFIG.sentinels.speedTilesPerSecond,
+  );
+  readonly #sentinelCollisionSystem = new SentinelCollisionSystem(
+    GAME_CONFIG.scoring.sentinelPulsePoints,
+    GAME_CONFIG.sentinels.disabledSecondsAfterPulse,
   );
 
   #outcome: GameSessionOutcome = null;
@@ -51,6 +65,14 @@ export class GameSession {
     this.#movementSystem.update(this.#player, this.#level, deltaSeconds);
     this.#updatePulse(deltaSeconds);
     this.#collectCurrentTile();
+    this.#enemyAISystem.updateSentinels(
+      this.#sentinels,
+      this.#level,
+      this.#player,
+      this.#player.pulseRemainingSeconds > 0,
+      deltaSeconds,
+    );
+    this.#resolveSentinelCollision();
 
     if (this.#scoreSystem.isLevelComplete()) {
       this.#scoreSystem.addLevelCompleteBonus();
@@ -68,6 +90,7 @@ export class GameSession {
       player: this.#player,
       collectibles: this.#collectibles,
       powerNodes: this.#powerNodes,
+      sentinels: this.#sentinels,
       score: this.#scoreSystem.state,
       isLevelComplete: this.#scoreSystem.isLevelComplete(),
       isGameOver: this.#scoreSystem.isGameOver(),
@@ -92,5 +115,26 @@ export class GameSession {
       0,
       this.#player.pulseRemainingSeconds - deltaSeconds,
     );
+  }
+
+  #resolveSentinelCollision(): void {
+    const result = this.#sentinelCollisionSystem.resolve(
+      this.#player,
+      this.#sentinels,
+      this.#level,
+      this.#scoreSystem,
+    );
+
+    if (result === 'player-hit' && !this.#scoreSystem.isGameOver()) {
+      this.#resetActorsAfterHit();
+    }
+  }
+
+  #resetActorsAfterHit(): void {
+    resetPlayer(this.#player, this.#level.playerStart, this.#level.tileSize);
+
+    for (const sentinel of this.#sentinels) {
+      resetSentinel(sentinel, this.#level.tileSize);
+    }
   }
 }

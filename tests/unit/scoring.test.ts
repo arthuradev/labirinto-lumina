@@ -18,6 +18,19 @@ describe('ScoreSystem', () => {
     expect(scoreSystem.state.powerNodesActivated).toBe(1);
   });
 
+  it('soma pontos de sentinela atravessada durante pulso', () => {
+    const scoreSystem = new ScoreSystem({
+      initialLives: 3,
+      fragmentsTotal: 1,
+      levelCompleteLifeBonus: 100,
+    });
+
+    scoreSystem.addSentinelPulsePoints(200);
+
+    expect(scoreSystem.state.score).toBe(200);
+    expect(scoreSystem.state.sentinelsCrossedDuringPulse).toBe(1);
+  });
+
   it('aplica bônus por vidas restantes ao concluir fase', () => {
     const scoreSystem = new ScoreSystem({
       initialLives: 3,

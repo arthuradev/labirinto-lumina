@@ -19,6 +19,7 @@ Cada fase deve conter:
   playerStart: { x: 1, y: 1 },
   collectibles: [...],
   powerNodes: [...],
+  sentinels: [...],
 }
 ```
 
@@ -30,16 +31,14 @@ Cada fase deve conter:
 P jogador inicial
 L fragmento de luz
 N nó de pulso
+V sentinela Vigia
+E sentinela Eco
+R sentinela Rastro
 ```
 
-Tiles planejados para etapas futuras:
-
-```text
-S sentinela
-```
-
-Durante o parsing, `P`, `L` e `N` viram caminho livre. `P` registra `playerStart`, `L` gera
-fragmentos de luz e `N` gera nós de pulso.
+Durante o parsing, `P`, `L`, `N`, `V`, `E` e `R` viram caminho livre. `P` registra
+`playerStart`, `L` gera fragmentos de luz, `N` gera nós de pulso e `V`/`E`/`R` geram sentinelas
+com tipos próprios.
 
 ## Regras de originalidade
 
@@ -55,10 +54,9 @@ Toda fase deve:
 - ter início claro;
 - ter todos os caminhos alcançáveis;
 - ter todos os fragmentos e nós alcançáveis;
+- ter sentinelas em caminhos livres e alcançáveis;
 - ser navegável sem atravessar paredes;
 - ter dificuldade progressiva.
-
-Sentinelas entram nas próximas etapas.
 
 ## Validação planejada
 
@@ -69,10 +67,10 @@ Testes devem verificar:
 - todos os caminhos alcançáveis;
 - fragmentos alcançáveis;
 - nós de pulso alcançáveis;
+- sentinelas em tiles livres e alcançáveis;
 - mapa retangular;
 
 Validações planejadas para etapas futuras:
 
-- sentinelas em tiles livres;
 - quantidade mínima de fragmentos;
 - nenhuma linha com largura incorreta.

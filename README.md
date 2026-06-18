@@ -90,15 +90,15 @@ Jogar.bat
 Status atual planejado:
 
 ```text
-v0.4.0 — Coleta, pontuação e fim de fase
+v0.5.0 — Sentinelas
 ```
 
 O projeto já possui tela inicial funcional em Canvas, game loop, máquina de estados,
 primeira fase original navegável, movimento em grid, colisão com paredes, fragmentos de luz,
-nós de pulso, pontuação e conclusão básica de fase.
+nós de pulso, pontuação, conclusão básica de fase e sentinelas originais com comportamentos
+simples.
 
-Sentinelas, múltiplas fases, áudio, high score e publicação via GitHub Pages ainda não foram
-implementados.
+Múltiplas fases, áudio, high score e publicação via GitHub Pages ainda não foram implementados.
 
 ## Documentação principal
 

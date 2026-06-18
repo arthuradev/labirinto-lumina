@@ -28,7 +28,9 @@ Game
   │    ├─ MovementSystem
   │    ├─ CollisionSystem
   │    ├─ CollectionSystem
-  │    └─ ScoreSystem
+  │    ├─ ScoreSystem
+  │    ├─ EnemyAISystem
+  │    └─ SentinelCollisionSystem
   └─ CanvasRenderer
         ↓
       Screens
@@ -46,6 +48,8 @@ Game
 - `CollisionSystem` bloqueia paredes e limites.
 - `CollectionSystem` detecta fragmentos e nós de pulso no tile atual.
 - `ScoreSystem` concentra pontuação, vidas e bônus.
+- `EnemyAISystem` move sentinelas com comportamentos simples e modo instável durante pulso.
+- `SentinelCollisionSystem` resolve perda de vida ou travessia pontuada durante pulso.
 - `screens/` descreve o conteúdo visual das telas.
 - `rendering/` desenha o estado recebido no Canvas.
 - `systems/` aplica regras.
@@ -53,8 +57,8 @@ Game
 - `levels/` guarda dados de fase.
 - `core/` contém tipos e funções puras.
 
-Na versão `v0.4.0`, jogador, input, movimento, colisão, primeira fase navegável, coleta,
-pontuação e fim de fase básico já existem. Sentinelas, áudio, high score e progressão real entre
+Na versão `v0.5.0`, jogador, input, movimento, colisão, primeira fase navegável, coleta,
+pontuação, fim de fase básico e sentinelas já existem. Áudio, high score e progressão real entre
 múltiplas fases permanecem planejados para etapas futuras.
 
 ## O que deve permanecer simples

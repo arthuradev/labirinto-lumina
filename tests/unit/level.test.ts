@@ -38,6 +38,18 @@ describe('LEVEL_01', () => {
       expect(reachable.has(toKey(powerNode.position))).toBe(true);
     }
   });
+
+  it('mantém sentinelas em caminhos alcançáveis', () => {
+    const collisionSystem = new CollisionSystem();
+    const reachable = collectReachablePositions(collisionSystem);
+
+    expect(LEVEL_01.sentinels).toHaveLength(3);
+    expect(LEVEL_01.sentinels.map((sentinel) => sentinel.type)).toEqual(['vigia', 'eco', 'rastro']);
+
+    for (const sentinel of LEVEL_01.sentinels) {
+      expect(reachable.has(toKey(sentinel.position))).toBe(true);
+    }
+  });
 });
 
 const collectReachablePositions = (collisionSystem: CollisionSystem): Set<string> => {

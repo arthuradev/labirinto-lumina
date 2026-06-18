@@ -11,6 +11,11 @@ export const GAME_CONFIG = {
   },
   scoring: {
     levelCompleteLifeBonus: 100,
+    sentinelPulsePoints: 200,
+  },
+  sentinels: {
+    speedTilesPerSecond: 3.2,
+    disabledSecondsAfterPulse: 4,
   },
   colors: {
     background: '#061015',

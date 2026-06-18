@@ -1,6 +1,7 @@
 import type { Collectible } from '../entities/Collectible';
 import type { Player } from '../entities/Player';
 import type { PowerNode } from '../entities/PowerNode';
+import type { Sentinel } from '../entities/Sentinel';
 import type { LevelDefinition } from '../levels';
 import type { RenderMetrics } from './RendererTypes';
 
@@ -103,16 +104,82 @@ export const drawPowerNodes = (
   }
 };
 
+export const drawSentinels = (
+  context: CanvasRenderingContext2D,
+  sentinels: readonly Sentinel[],
+  level: LevelDefinition,
+  metrics: RenderMetrics,
+  elapsedSeconds: number,
+): void => {
+  for (const sentinel of sentinels) {
+    const { x, y } = toRenderPosition(
+      sentinel.worldPosition.x,
+      sentinel.worldPosition.y,
+      level,
+      metrics,
+      true,
+    );
+    const radius = metrics.tileSize * 0.33;
+    const rotation = elapsedSeconds * (sentinel.isUnstable ? 3.2 : 1.4);
+    const alpha = sentinel.disabledRemainingSeconds > 0 ? 0.28 : 1;
+
+    context.save();
+    context.globalAlpha = alpha;
+    context.translate(x, y);
+    context.rotate(rotation);
+
+    context.fillStyle = getSentinelColor(sentinel.type, sentinel.isUnstable);
+    context.beginPath();
+    context.moveTo(0, -radius);
+    context.lineTo(radius * 0.82, 0);
+    context.lineTo(0, radius);
+    context.lineTo(-radius * 0.82, 0);
+    context.closePath();
+    context.fill();
+
+    context.strokeStyle = sentinel.isUnstable ? '#f0c978' : 'rgba(245, 251, 248, 0.72)';
+    context.lineWidth = Math.max(2, metrics.tileSize * 0.06);
+    context.stroke();
+
+    context.rotate(-rotation);
+    context.fillStyle = 'rgba(6, 16, 21, 0.78)';
+    context.beginPath();
+    context.arc(0, 0, radius * 0.32, 0, Math.PI * 2);
+    context.fill();
+
+    context.restore();
+  }
+};
+
 const toRenderPosition = (
   gridX: number,
   gridY: number,
   level: LevelDefinition,
   metrics: RenderMetrics,
+  isWorldPosition = false,
 ) => {
   const scale = metrics.tileSize / level.tileSize;
+  const worldX = isWorldPosition ? gridX : gridX * level.tileSize + level.tileSize / 2;
+  const worldY = isWorldPosition ? gridY : gridY * level.tileSize + level.tileSize / 2;
 
   return {
-    x: metrics.offsetX + (gridX * level.tileSize + level.tileSize / 2) * scale,
-    y: metrics.offsetY + (gridY * level.tileSize + level.tileSize / 2) * scale,
+    x: metrics.offsetX + worldX * scale,
+    y: metrics.offsetY + worldY * scale,
   };
+};
+
+const getSentinelColor = (type: Sentinel['type'], isUnstable: boolean): string => {
+  if (isUnstable) {
+    return '#f0c978';
+  }
+
+  if (type === 'vigia') {
+    return '#d95f78';
+  }
+
+  if (type === 'eco') {
+    return '#8d7cf0';
+  }
+
+  return '#6cc38f';
 };

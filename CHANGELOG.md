@@ -8,10 +8,26 @@ O formato segue a ideia de manter um histórico legível por humanos, organizado
 
 ### Planejado
 
-- Sentinelas.
 - Três fases originais.
 - GitHub Pages.
 - Release v1.0.0.
+
+## [v0.5.0] — 2026-06-18
+
+### Adicionado
+
+- Entidade `Sentinel` com tipos originais Vigia, Eco e Rastro.
+- Sistema `EnemyAISystem` com perseguição direta, tentativa simples de interceptação e patrulha.
+- Modo instável durante pulso, fazendo sentinelas buscarem rotas mais distantes da Lumina.
+- Colisão jogador-sentinela com perda de vida fora do pulso.
+- Pontuação de `+200` ao atravessar sentinelas durante pulso.
+- Renderização geométrica das sentinelas como losangos energéticos, sem aparência de fantasmas.
+- HUD atualizado com contagem de sentinelas.
+- Testes unitários para IA inimiga, colisão com sentinelas, pontuação e alcance no mapa.
+
+### Observação
+
+Esta versão ainda não implementa múltiplas fases, áudio, high score ou publicação via GitHub Pages.
 
 ## [v0.4.0] — 2026-06-18
 

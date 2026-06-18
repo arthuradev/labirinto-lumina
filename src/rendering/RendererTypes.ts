@@ -2,6 +2,7 @@ import type { GameState } from '../core/types';
 import type { Collectible } from '../entities/Collectible';
 import type { Player } from '../entities/Player';
 import type { PowerNode } from '../entities/PowerNode';
+import type { Sentinel } from '../entities/Sentinel';
 import type { LevelDefinition } from '../levels';
 import type { ScoreState } from '../systems/ScoreSystem';
 
@@ -19,6 +20,7 @@ export interface PlayfieldRenderState {
   readonly player: Player;
   readonly collectibles: readonly Collectible[];
   readonly powerNodes: readonly PowerNode[];
+  readonly sentinels: readonly Sentinel[];
   readonly score: ScoreState;
   readonly isLevelComplete: boolean;
   readonly isGameOver: boolean;

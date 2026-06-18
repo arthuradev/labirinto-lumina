@@ -6,7 +6,7 @@ A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e p
 
 ## Missão atual
 
-Executar a **Etapa 4 — Coleta, pontuação e fim de fase** do projeto **Labirinto Lumina**.
+Executar a **Etapa 5 — Sentinelas** do projeto **Labirinto Lumina**.
 
 ## Regra de autonomia
 
@@ -253,6 +253,25 @@ Fora do escopo desta etapa:
 Implementar inimigos originais com comportamentos simples.
 
 Tag: `v0.5.0`
+
+Entregas esperadas:
+
+- entidade própria de sentinela;
+- dados de sentinelas na primeira fase;
+- comportamentos simples para Vigia, Eco e Rastro;
+- modo instável durante pulso;
+- colisão jogador-sentinela com perda de vida;
+- pontuação ao atravessar sentinela durante pulso;
+- renderização original das sentinelas sem aparência de fantasmas;
+- testes unitários de IA e colisão.
+
+Fora do escopo desta etapa:
+
+- múltiplas fases;
+- balanceamento final de dificuldade;
+- áudio;
+- high score local;
+- publicação via GitHub Pages.
 
 ### Etapa 6 — Fases completas
 

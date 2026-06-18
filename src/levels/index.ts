@@ -3,8 +3,11 @@ export type {
   LevelCollectibleDefinition,
   LevelDefinition,
   LevelPowerNodeDefinition,
+  LevelSentinelCode,
+  LevelSentinelDefinition,
   LevelSource,
   LevelTile,
   LevelTileCode,
+  SentinelType,
 } from './levelTypes';
 export { parseLevel } from './levelTypes';

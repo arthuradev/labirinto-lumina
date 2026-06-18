@@ -8,6 +8,7 @@ export const drawHud = (
   level: LevelDefinition,
   score: ScoreState,
   pulseRemainingSeconds: number,
+  sentinelCount: number,
   width: number,
 ): void => {
   context.textBaseline = 'middle';
@@ -23,7 +24,7 @@ export const drawHud = (
   context.fillStyle = '#b6cdca';
   context.font = '500 13px system-ui, sans-serif';
   context.fillText(
-    `${level.name} · fragmentos ${score.fragmentsCollected}/${score.fragmentsTotal} · vidas ${score.lives}`,
+    `${level.name} · fragmentos ${score.fragmentsCollected}/${score.fragmentsTotal} · vidas ${score.lives} · sentinelas ${sentinelCount}`,
     20,
     44,
   );

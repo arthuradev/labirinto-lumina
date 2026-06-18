@@ -21,3 +21,13 @@ export const createPlayer = (start: GridPosition, tileSize: number): Player => (
   moveProgress: 0,
   pulseRemainingSeconds: 0,
 });
+
+export const resetPlayer = (player: Player, start: GridPosition, tileSize: number): void => {
+  player.gridPosition = start;
+  player.worldPosition = gridToWorldCenter(start, tileSize);
+  player.direction = 'none';
+  player.requestedDirection = 'none';
+  player.targetGridPosition = null;
+  player.moveProgress = 0;
+  player.pulseRemainingSeconds = 0;
+};

@@ -29,8 +29,8 @@ Jogar.bat
 
 ## Objetivo
 
-Na versão atual, já é possível navegar pela primeira fase, coletar fragmentos, ativar nós de pulso e
-concluir a fase ao coletar todos os fragmentos.
+Na versão atual, já é possível navegar pela primeira fase, coletar fragmentos, ativar nós de pulso,
+evitar sentinelas e concluir a fase ao coletar todos os fragmentos.
 
 Objetivo planejado para a versão final:
 
@@ -54,13 +54,13 @@ Atual:
 ```text
 Fragmento de luz: +10
 Nó de pulso: +50
+Sentinela atravessada durante pulso: +200
 Conclusão de fase: bônus por vida restante
 ```
 
 Planejado para etapas futuras:
 
 ```text
-Sentinela atravessada durante pulso: +200
 High score local
 ```
 

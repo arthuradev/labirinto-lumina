@@ -1,7 +1,7 @@
 import type { GameSnapshot } from '../core/types';
 import { GAME_CONFIG } from '../game/GameConfig';
 import { getScreenContent } from '../screens/StartScreen';
-import { drawCollectibles, drawPlayer, drawPowerNodes } from './drawEntities';
+import { drawCollectibles, drawPlayer, drawPowerNodes, drawSentinels } from './drawEntities';
 import { drawHud } from './drawHud';
 import { drawMaze } from './drawMaze';
 import type { PlayfieldRenderState, RenderMetrics } from './RendererTypes';
@@ -163,6 +163,13 @@ export class CanvasRenderer {
       metrics,
       snapshot.elapsedSeconds,
     );
+    drawSentinels(
+      this.#context,
+      playfield.sentinels,
+      playfield.level,
+      metrics,
+      snapshot.elapsedSeconds,
+    );
     drawPlayer(this.#context, playfield.player, playfield.level, metrics, snapshot.elapsedSeconds);
     drawHud(
       this.#context,
@@ -170,6 +177,7 @@ export class CanvasRenderer {
       playfield.level,
       playfield.score,
       playfield.player.pulseRemainingSeconds,
+      playfield.sentinels.length,
       this.#width,
     );
 

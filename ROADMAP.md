@@ -71,6 +71,8 @@ Objetivo:
 - validar perseguição/patrulha;
 - implementar modo instável durante pulso.
 
+Status: concluído.
+
 ### v0.6.0 — Fases completas
 
 Objetivo:

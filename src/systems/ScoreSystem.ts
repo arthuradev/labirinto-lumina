@@ -4,6 +4,7 @@ export interface ScoreState {
   fragmentsCollected: number;
   fragmentsTotal: number;
   powerNodesActivated: number;
+  sentinelsCrossedDuringPulse: number;
 }
 
 export interface ScoreSystemOptions {
@@ -22,6 +23,7 @@ export class ScoreSystem {
       fragmentsCollected: 0,
       fragmentsTotal: options.fragmentsTotal,
       powerNodesActivated: 0,
+      sentinelsCrossedDuringPulse: 0,
     };
   }
 
@@ -37,6 +39,11 @@ export class ScoreSystem {
   addPowerNodePoints(points: number): void {
     this.#state.score += points;
     this.#state.powerNodesActivated += 1;
+  }
+
+  addSentinelPulsePoints(points: number): void {
+    this.#state.score += points;
+    this.#state.sentinelsCrossedDuringPulse += 1;
   }
 
   addLevelCompleteBonus(): void {

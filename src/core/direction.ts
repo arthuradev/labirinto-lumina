@@ -10,5 +10,12 @@ export const DIRECTION_VECTORS: Record<MovementDirection, GridPosition> = {
   right: { x: 1, y: 0 },
 };
 
+export const MOVEMENT_DIRECTIONS = [
+  'up',
+  'down',
+  'left',
+  'right',
+] as const satisfies readonly MovementDirection[];
+
 export const isMovementDirection = (direction: Direction): direction is MovementDirection =>
   direction !== 'none';
