@@ -1,7 +1,20 @@
 import type { GridPosition } from '../core/types';
 
 export type LevelTile = 'wall' | 'floor';
-export type LevelTileCode = '#' | '.' | 'P';
+export type LevelTileCode = '#' | '.' | 'P' | 'L' | 'N';
+
+export interface LevelCollectibleDefinition {
+  readonly id: string;
+  readonly position: GridPosition;
+  readonly points: number;
+}
+
+export interface LevelPowerNodeDefinition {
+  readonly id: string;
+  readonly position: GridPosition;
+  readonly points: number;
+  readonly durationSeconds: number;
+}
 
 export interface LevelDefinition {
   readonly id: string;
@@ -11,6 +24,8 @@ export interface LevelDefinition {
   readonly tileSize: number;
   readonly tiles: readonly LevelTile[];
   readonly playerStart: GridPosition;
+  readonly collectibles: readonly LevelCollectibleDefinition[];
+  readonly powerNodes: readonly LevelPowerNodeDefinition[];
 }
 
 export interface LevelSource {
@@ -27,6 +42,8 @@ export const parseLevel = (source: LevelSource): LevelDefinition => {
 
   const width = source.rows[0]?.length ?? 0;
   const tiles: LevelTile[] = [];
+  const collectibles: LevelCollectibleDefinition[] = [];
+  const powerNodes: LevelPowerNodeDefinition[] = [];
   let playerStart: GridPosition | null = null;
 
   source.rows.forEach((row, y) => {
@@ -45,6 +62,19 @@ export const parseLevel = (source: LevelSource): LevelDefinition => {
         }
 
         playerStart = { x, y };
+      } else if (code === 'L') {
+        collectibles.push({
+          id: `${source.id}-fragment-${collectibles.length + 1}`,
+          position: { x, y },
+          points: 10,
+        });
+      } else if (code === 'N') {
+        powerNodes.push({
+          id: `${source.id}-pulse-node-${powerNodes.length + 1}`,
+          position: { x, y },
+          points: 50,
+          durationSeconds: 8,
+        });
       }
 
       tiles.push(code === '#' ? 'wall' : 'floor');
@@ -63,8 +93,10 @@ export const parseLevel = (source: LevelSource): LevelDefinition => {
     tileSize: source.tileSize,
     tiles,
     playerStart,
+    collectibles,
+    powerNodes,
   };
 };
 
 const isLevelTileCode = (code: string): code is LevelTileCode =>
-  code === '#' || code === '.' || code === 'P';
+  code === '#' || code === '.' || code === 'P' || code === 'L' || code === 'N';

@@ -29,7 +29,8 @@ Jogar.bat
 
 ## Objetivo
 
-Na versão atual, já é possível navegar pela primeira fase e testar colisão com paredes.
+Na versão atual, já é possível navegar pela primeira fase, coletar fragmentos, ativar nós de pulso e
+concluir a fase ao coletar todos os fragmentos.
 
 Objetivo planejado para a versão final:
 
@@ -43,17 +44,24 @@ Objetivo planejado para a versão final:
 ```text
 Setas direcionais ou WASD: mover
 P: pausar/despausar
+R: reiniciar após vitória, conclusão de fase ou game over
 ```
 
 ## Pontuação
 
-Planejada:
+Atual:
 
 ```text
 Fragmento de luz: +10
 Nó de pulso: +50
+Conclusão de fase: bônus por vida restante
+```
+
+Planejado para etapas futuras:
+
+```text
 Sentinela atravessada durante pulso: +200
-Conclusão de fase: bônus
+High score local
 ```
 
 ## Estados

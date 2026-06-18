@@ -6,7 +6,7 @@ A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e p
 
 ## Missão atual
 
-Executar a **Etapa 3 — Movimento, labirinto e colisão** do projeto **Labirinto Lumina**.
+Executar a **Etapa 4 — Coleta, pontuação e fim de fase** do projeto **Labirinto Lumina**.
 
 ## Regra de autonomia
 
@@ -228,6 +228,25 @@ Fora do escopo desta etapa:
 Implementar fragmentos de luz, nós de pulso, pontuação, vitória e derrota básica.
 
 Tag: `v0.4.0`
+
+Entregas esperadas:
+
+- fragmentos de luz coletáveis;
+- nós de pulso temporários;
+- sistema de pontuação;
+- HUD com pontos, vidas, fragmentos e pulso;
+- conclusão de fase ao coletar todos os fragmentos;
+- estado de vitória básico após conclusão da fase;
+- fluxo de game over/reinício preparado para perda de vidas;
+- testes unitários de coleta, pontuação e regras de fim.
+
+Fora do escopo desta etapa:
+
+- sentinelas;
+- colisão com inimigos;
+- avanço entre múltiplas fases;
+- áudio;
+- high score local.
 
 ### Etapa 5 — Sentinelas
 

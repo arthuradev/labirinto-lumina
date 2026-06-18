@@ -54,7 +54,13 @@ export class Game {
     this.#frame += 1;
 
     if (this.#stateMachine.state === 'playing') {
-      this.#session?.update(_deltaSeconds);
+      const outcome = this.#session?.update(_deltaSeconds);
+
+      if (outcome === 'level-complete') {
+        this.#stateMachine.transitionTo('level-complete');
+      } else if (outcome === 'game-over') {
+        this.#stateMachine.transitionTo('game-over');
+      }
     }
 
     this.#render();
@@ -97,6 +103,8 @@ export class Game {
       this.#handleConfirm();
     } else if (action.type === 'pause') {
       this.#togglePause();
+    } else if (action.type === 'restart') {
+      this.#restart();
     } else if (this.#stateMachine.state === 'playing') {
       this.#session?.requestDirection(action.direction);
     }
@@ -107,6 +115,11 @@ export class Game {
       this.#session = new GameSession();
       this.#stateMachine.transitionTo('playing');
       this.#render();
+    } else if (this.#stateMachine.state === 'level-complete') {
+      this.#stateMachine.transitionTo('victory');
+      this.#render();
+    } else if (this.#stateMachine.state === 'victory' || this.#stateMachine.state === 'game-over') {
+      this.#restart();
     }
   };
 
@@ -125,5 +138,17 @@ export class Game {
 
   #render(): void {
     this.#renderer.render(this.#snapshot(), this.#session?.snapshot());
+  }
+
+  #restart(): void {
+    if (
+      this.#stateMachine.state === 'game-over' ||
+      this.#stateMachine.state === 'victory' ||
+      this.#stateMachine.state === 'level-complete'
+    ) {
+      this.#session = null;
+      this.#stateMachine.transitionTo('start');
+      this.#render();
+    }
   }
 }

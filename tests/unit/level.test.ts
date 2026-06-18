@@ -22,6 +22,22 @@ describe('LEVEL_01', () => {
 
     expect(reachable.size).toBe(floorCount);
   });
+
+  it('mantém fragmentos e nós de pulso alcançáveis', () => {
+    const collisionSystem = new CollisionSystem();
+    const reachable = collectReachablePositions(collisionSystem);
+
+    expect(LEVEL_01.collectibles).toHaveLength(10);
+    expect(LEVEL_01.powerNodes).toHaveLength(3);
+
+    for (const collectible of LEVEL_01.collectibles) {
+      expect(reachable.has(toKey(collectible.position))).toBe(true);
+    }
+
+    for (const powerNode of LEVEL_01.powerNodes) {
+      expect(reachable.has(toKey(powerNode.position))).toBe(true);
+    }
+  });
 });
 
 const collectReachablePositions = (collisionSystem: CollisionSystem): Set<string> => {

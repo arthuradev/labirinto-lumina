@@ -24,7 +24,8 @@ Status atual:
 
 - `Enter` ou `Espaço`: implementado para iniciar.
 - `P`: implementado para pausar/despausar.
-- `M`, `R` e `Esc`: planejados para etapas futuras.
+- `R`: implementado para reiniciar após vitória, conclusão de fase ou game over.
+- `M` e `Esc`: planejados para etapas futuras.
 
 ## Requisitos de UX
 

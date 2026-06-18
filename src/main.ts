@@ -11,7 +11,7 @@ const canvas = document.createElement('canvas');
 canvas.className = 'lumina-canvas';
 canvas.setAttribute(
   'aria-label',
-  'Labirinto Lumina. Primeira fase navegável com movimento em grid e colisão com paredes.',
+  'Labirinto Lumina. Primeira fase navegável com coleta, pontuação e fim de fase básico.',
 );
 app.append(canvas);
 

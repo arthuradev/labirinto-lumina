@@ -60,6 +60,8 @@ Objetivo:
 - implementar vitória/derrota básica;
 - adicionar testes de regras.
 
+Status: concluído.
+
 ### v0.5.0 — Sentinelas
 
 Objetivo:

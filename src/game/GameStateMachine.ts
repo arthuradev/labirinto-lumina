@@ -15,7 +15,7 @@ const STATE_TRANSITIONS: Record<GameState, readonly GameState[]> = {
   start: ['playing'],
   playing: ['paused', 'level-complete', 'game-over', 'victory', 'start'],
   paused: ['playing', 'start'],
-  'level-complete': ['playing', 'start'],
+  'level-complete': ['victory', 'playing', 'start'],
   'game-over': ['start'],
   victory: ['start'],
 };

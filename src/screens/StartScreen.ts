@@ -18,18 +18,21 @@ export const getScreenContent = (state: GameState): ScreenContent => {
         state,
         title: GAME_CONFIG.title,
         subtitle: GAME_CONFIG.subtitle,
-        status: 'Primeira fase navegável pronta.',
+        status: 'Colete todos os fragmentos de luz.',
         action: 'Pressione Enter ou clique para iniciar.',
-        details: ['Use setas ou WASD para mover a Lumina.', 'Colisão com paredes já está ativa.'],
+        details: [
+          'Nós de pulso dão pontos e ativam energia temporária.',
+          'Setas ou WASD movem a Lumina. P pausa a partida.',
+        ],
       };
     case 'playing':
       return {
         state,
         title: 'Circuito ativo',
         subtitle: 'Movimento em grid habilitado.',
-        status: 'Coleta e sentinelas entram nas próximas etapas.',
+        status: 'Colete fragmentos e nós de pulso.',
         action: 'Pressione P para pausar.',
-        details: ['Setas ou WASD movem a Lumina.', 'Paredes bloqueiam o deslocamento.'],
+        details: ['Todos os fragmentos encerram a fase.', 'Sentinelas entram na Etapa 5.'],
       };
     case 'paused':
       return {
@@ -44,28 +47,28 @@ export const getScreenContent = (state: GameState): ScreenContent => {
       return {
         state,
         title: 'Fase concluída',
-        subtitle: 'Estado reservado para progressão futura.',
-        status: 'Sem fase jogável nesta etapa.',
-        action: 'Retorno ao início nas próximas etapas.',
-        details: ['Este estado existe para manter o contrato arquitetural.'],
+        subtitle: 'Todos os fragmentos foram coletados.',
+        status: 'Bônus por vidas restantes aplicado.',
+        action: 'Pressione Enter para avançar.',
+        details: ['Na versão final, este fluxo avançará entre fases.'],
       };
     case 'game-over':
       return {
         state,
         title: 'Fim de jogo',
-        subtitle: 'Estado reservado para derrota futura.',
-        status: 'Sem condição de derrota nesta etapa.',
-        action: 'Retorno ao início nas próximas etapas.',
-        details: ['Este estado existe para manter o contrato arquitetural.'],
+        subtitle: 'A luz se dissipou.',
+        status: 'Derrota básica preparada.',
+        action: 'Pressione Enter ou R para voltar ao início.',
+        details: ['Sentinelas vão acionar perda de vidas na Etapa 5.'],
       };
     case 'victory':
       return {
         state,
         title: 'Vitória',
-        subtitle: 'Estado reservado para conclusão futura.',
-        status: 'Sem condição de vitória nesta etapa.',
-        action: 'Retorno ao início nas próximas etapas.',
-        details: ['Este estado existe para manter o contrato arquitetural.'],
+        subtitle: 'Circuito Aurora estabilizado.',
+        status: 'Fim de fase básico funcionando.',
+        action: 'Pressione Enter ou R para jogar novamente.',
+        details: ['Mais fases entram na Etapa 6.'],
       };
   }
 };

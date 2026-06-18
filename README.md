@@ -90,13 +90,15 @@ Jogar.bat
 Status atual planejado:
 
 ```text
-v0.3.0 — Movimento, labirinto e colisão
+v0.4.0 — Coleta, pontuação e fim de fase
 ```
 
 O projeto já possui tela inicial funcional em Canvas, game loop, máquina de estados,
-primeira fase original navegável, movimento em grid e colisão com paredes.
+primeira fase original navegável, movimento em grid, colisão com paredes, fragmentos de luz,
+nós de pulso, pontuação e conclusão básica de fase.
 
-Coleta, pontuação, sentinelas e condições finais ainda não foram implementadas.
+Sentinelas, múltiplas fases, áudio, high score e publicação via GitHub Pages ainda não foram
+implementados.
 
 ## Documentação principal
 

@@ -1,10 +1,13 @@
 import type { GameSnapshot } from '../core/types';
 import type { LevelDefinition } from '../levels';
+import type { ScoreState } from '../systems/ScoreSystem';
 
 export const drawHud = (
   context: CanvasRenderingContext2D,
   snapshot: GameSnapshot,
   level: LevelDefinition,
+  score: ScoreState,
+  pulseRemainingSeconds: number,
   width: number,
 ): void => {
   context.textBaseline = 'middle';
@@ -19,10 +22,23 @@ export const drawHud = (
 
   context.fillStyle = '#b6cdca';
   context.font = '500 13px system-ui, sans-serif';
-  context.fillText(`${level.name} · setas/WASD para mover · P para pausar`, 20, 44);
+  context.fillText(
+    `${level.name} · fragmentos ${score.fragmentsCollected}/${score.fragmentsTotal} · vidas ${score.lives}`,
+    20,
+    44,
+  );
 
   context.textAlign = 'right';
   context.fillStyle = '#72e0d8';
   context.font = '500 13px ui-monospace, SFMono-Regular, Consolas, monospace';
-  context.fillText(`estado: ${snapshot.state}`, width - 20, 22);
+  context.fillText(`pontos ${score.score}`, width - 20, 22);
+
+  context.fillStyle = pulseRemainingSeconds > 0 ? '#f0c978' : '#b6cdca';
+  context.fillText(
+    pulseRemainingSeconds > 0
+      ? `pulso ${pulseRemainingSeconds.toFixed(1)}s`
+      : `estado: ${snapshot.state}`,
+    width - 20,
+    44,
+  );
 };

@@ -8,11 +8,27 @@ O formato segue a ideia de manter um histórico legível por humanos, organizado
 
 ### Planejado
 
-- Coleta e pontuação.
 - Sentinelas.
 - Três fases originais.
 - GitHub Pages.
 - Release v1.0.0.
+
+## [v0.4.0] — 2026-06-18
+
+### Adicionado
+
+- Fragmentos de luz coletáveis na fase `Circuito Aurora`.
+- Nós de pulso com duração temporária e pontuação própria.
+- Sistema de pontuação com fragmentos, nós de pulso, vidas e bônus por conclusão de fase.
+- HUD com pontos, vidas, fragmentos coletados e tempo restante de pulso.
+- Estado `level-complete` acionado ao coletar todos os fragmentos.
+- Fluxo básico de vitória após conclusão da fase.
+- Fluxo de game over/reinício preparado para perda de vidas.
+- Testes unitários para coleta, pontuação, alcance de itens e transição para vitória.
+
+### Observação
+
+Esta versão ainda não implementa sentinelas, colisão com inimigos, múltiplas fases, áudio ou high score.
 
 ## [v0.3.0] — 2026-06-18
 

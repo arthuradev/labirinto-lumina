@@ -9,6 +9,7 @@ export interface Player {
   requestedDirection: Direction;
   targetGridPosition: GridPosition | null;
   moveProgress: number;
+  pulseRemainingSeconds: number;
 }
 
 export const createPlayer = (start: GridPosition, tileSize: number): Player => ({
@@ -18,4 +19,5 @@ export const createPlayer = (start: GridPosition, tileSize: number): Player => (
   requestedDirection: 'none',
   targetGridPosition: null,
   moveProgress: 0,
+  pulseRemainingSeconds: 0,
 });

@@ -26,6 +26,16 @@ describe('GameStateMachine', () => {
     expect(machine.transitionTo('playing')).toBe('playing');
   });
 
+  it('permite concluir fase e chegar à vitória', () => {
+    const machine = new GameStateMachine();
+
+    machine.transitionTo('start');
+    machine.transitionTo('playing');
+
+    expect(machine.transitionTo('level-complete')).toBe('level-complete');
+    expect(machine.transitionTo('victory')).toBe('victory');
+  });
+
   it('bloqueia transições inválidas', () => {
     const machine = new GameStateMachine();
 

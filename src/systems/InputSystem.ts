@@ -3,6 +3,7 @@ import type { MovementDirection } from '../core/direction';
 export type InputAction =
   | { readonly type: 'confirm' }
   | { readonly type: 'pause' }
+  | { readonly type: 'restart' }
   | { readonly type: 'direction'; readonly direction: MovementDirection };
 
 const DIRECTION_KEYS: Record<string, MovementDirection> = {
@@ -26,6 +27,10 @@ export class InputSystem {
 
     if (normalizedKey === 'p') {
       return { type: 'pause' };
+    }
+
+    if (normalizedKey === 'r') {
+      return { type: 'restart' };
     }
 
     const direction = DIRECTION_KEYS[normalizedKey];

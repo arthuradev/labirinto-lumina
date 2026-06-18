@@ -7,6 +7,10 @@ export const GAME_CONFIG = {
   },
   player: {
     speedTilesPerSecond: 6,
+    initialLives: 3,
+  },
+  scoring: {
+    levelCompleteLifeBonus: 100,
   },
   colors: {
     background: '#061015',

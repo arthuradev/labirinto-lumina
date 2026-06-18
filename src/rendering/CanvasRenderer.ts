@@ -1,7 +1,7 @@
 import type { GameSnapshot } from '../core/types';
 import { GAME_CONFIG } from '../game/GameConfig';
 import { getScreenContent } from '../screens/StartScreen';
-import { drawPlayer } from './drawEntities';
+import { drawCollectibles, drawPlayer, drawPowerNodes } from './drawEntities';
 import { drawHud } from './drawHud';
 import { drawMaze } from './drawMaze';
 import type { PlayfieldRenderState, RenderMetrics } from './RendererTypes';
@@ -46,7 +46,12 @@ export class CanvasRenderer {
     this.resize();
     this.#drawBackground(snapshot.elapsedSeconds);
 
-    if (playfield && (snapshot.state === 'playing' || snapshot.state === 'paused')) {
+    if (
+      playfield &&
+      (snapshot.state === 'playing' ||
+        snapshot.state === 'paused' ||
+        snapshot.state === 'level-complete')
+    ) {
       this.#drawPlayfield(snapshot, playfield);
       return;
     }
@@ -144,11 +149,34 @@ export class CanvasRenderer {
     const metrics = this.#getPlayfieldMetrics(playfield);
 
     drawMaze(this.#context, playfield.level, metrics);
+    drawCollectibles(
+      this.#context,
+      playfield.collectibles,
+      playfield.level,
+      metrics,
+      snapshot.elapsedSeconds,
+    );
+    drawPowerNodes(
+      this.#context,
+      playfield.powerNodes,
+      playfield.level,
+      metrics,
+      snapshot.elapsedSeconds,
+    );
     drawPlayer(this.#context, playfield.player, playfield.level, metrics, snapshot.elapsedSeconds);
-    drawHud(this.#context, snapshot, playfield.level, this.#width);
+    drawHud(
+      this.#context,
+      snapshot,
+      playfield.level,
+      playfield.score,
+      playfield.player.pulseRemainingSeconds,
+      this.#width,
+    );
 
     if (snapshot.state === 'paused') {
       this.#drawPauseOverlay();
+    } else if (snapshot.state === 'level-complete') {
+      this.#drawLevelCompleteOverlay(playfield.score.score);
     }
   }
 
@@ -179,6 +207,29 @@ export class CanvasRenderer {
     this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
     this.#context.font = '500 17px system-ui, sans-serif';
     this.#context.fillText('Pressione P para continuar.', this.#width / 2, this.#height / 2 + 28);
+  }
+
+  #drawLevelCompleteOverlay(score: number): void {
+    this.#context.fillStyle = 'rgba(6, 16, 21, 0.68)';
+    this.#context.fillRect(0, 0, this.#width, this.#height);
+
+    this.#context.textAlign = 'center';
+    this.#context.textBaseline = 'middle';
+    this.#context.fillStyle = GAME_CONFIG.colors.warmAccent;
+    this.#context.font = '700 38px system-ui, sans-serif';
+    this.#context.fillText('Circuito concluído', this.#width / 2, this.#height / 2 - 34);
+
+    this.#context.fillStyle = GAME_CONFIG.colors.text;
+    this.#context.font = '600 20px system-ui, sans-serif';
+    this.#context.fillText(`Pontuação: ${score}`, this.#width / 2, this.#height / 2 + 8);
+
+    this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
+    this.#context.font = '500 16px system-ui, sans-serif';
+    this.#context.fillText(
+      'Pressione Enter para ver a vitória.',
+      this.#width / 2,
+      this.#height / 2 + 46,
+    );
   }
 
   #roundRect(x: number, y: number, width: number, height: number, radius: number): void {
