@@ -90,10 +90,11 @@ Jogar.bat
 Status atual planejado:
 
 ```text
-v0.1.0 — Fundação documental e técnica inicial
+v0.2.0 — Núcleo técnico do jogo
 ```
 
-Gameplay ainda não deve ser implementado na primeira etapa.
+O projeto já possui tela inicial funcional em Canvas, game loop e máquina de estados.
+Movimento, labirinto e colisão ainda não foram implementados.
 
 ## Documentação principal
 

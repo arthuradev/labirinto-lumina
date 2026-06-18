@@ -24,7 +24,7 @@ Objetivo:
 - criar CI inicial;
 - criar repositório público.
 
-Status: etapa inicial.
+Status: concluído.
 
 ### v0.2.0 — Núcleo técnico do jogo
 
@@ -35,6 +35,8 @@ Objetivo:
 - criar game loop;
 - criar estados básicos;
 - renderizar tela inicial real.
+
+Status: concluído.
 
 ### v0.3.0 — Movimento, labirinto e colisão
 

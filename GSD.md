@@ -6,7 +6,7 @@ A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e p
 
 ## Missão atual
 
-Executar a **Etapa 1 — Fundação documental e técnica inicial** do projeto **Labirinto Lumina**.
+Executar a **Etapa 2 — Núcleo técnico do jogo** do projeto **Labirinto Lumina**.
 
 ## Regra de autonomia
 
@@ -176,6 +176,28 @@ Ao terminar, informar:
 Criar estrutura interna, game loop, estado do jogo, canvas renderer e tela inicial funcional.
 
 Tag: `v0.2.0`
+
+Entregas esperadas:
+
+- estrutura inicial de `src/game/`;
+- estrutura inicial de `src/core/`;
+- estrutura inicial de `src/rendering/`;
+- estrutura inicial de `src/screens/`;
+- `Game` coordenando aplicação;
+- `GameLoop` baseado em `requestAnimationFrame`;
+- `GameStateMachine` com estados definidos no SDD;
+- `CanvasRenderer` separado das regras;
+- tela inicial funcional no Canvas;
+- teste unitário básico da máquina de estados.
+
+Fora do escopo desta etapa:
+
+- movimento do jogador;
+- labirinto jogável;
+- colisão;
+- coleta;
+- sentinelas;
+- fases completas.
 
 ### Etapa 3 — Movimento, labirinto e colisão
 

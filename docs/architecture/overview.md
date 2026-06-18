@@ -21,14 +21,11 @@ Separar claramente:
 main.ts
   ↓
 Game
-  ↓
-GameLoop + GameStateMachine
-  ↓
-Systems
-  ↓
-Entities + Levels + Core
-  ↓
-CanvasRenderer
+  ├─ GameLoop
+  ├─ GameStateMachine
+  └─ CanvasRenderer
+        ↓
+      Screens
 ```
 
 ## Regras principais
@@ -37,11 +34,15 @@ CanvasRenderer
 - `Game` coordena.
 - `GameLoop` controla tempo.
 - `GameStateMachine` controla telas/estados.
+- `screens/` descreve o conteúdo visual das telas.
+- `rendering/` desenha o estado recebido no Canvas.
 - `systems/` aplica regras.
 - `entities/` guarda estado.
 - `levels/` guarda dados de fase.
-- `rendering/` desenha.
 - `core/` contém tipos e funções puras.
+
+Na versão `v0.2.0`, `systems/`, `entities/` e `levels/` ainda são arquitetura planejada.
+Eles entram quando movimento, colisão, coleta, sentinelas e fases forem implementados.
 
 ## O que deve permanecer simples
 
