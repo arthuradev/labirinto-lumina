@@ -101,6 +101,10 @@ export class Game {
 
     if (action.type === 'confirm') {
       this.#handleConfirm();
+    } else if (action.type === 'controls') {
+      this.#handleControls();
+    } else if (action.type === 'back') {
+      this.#handleBack();
     } else if (action.type === 'pause') {
       this.#togglePause();
     } else if (action.type === 'restart') {
@@ -111,10 +115,8 @@ export class Game {
   };
 
   #handleConfirm = (): void => {
-    if (this.#stateMachine.state === 'start') {
-      this.#session = new GameSession();
-      this.#stateMachine.transitionTo('playing');
-      this.#render();
+    if (this.#stateMachine.state === 'start' || this.#stateMachine.state === 'controls') {
+      this.#startNewSession();
     } else if (this.#stateMachine.state === 'level-complete') {
       if (this.#session?.advanceToNextLevel()) {
         this.#stateMachine.transitionTo('playing');
@@ -127,6 +129,25 @@ export class Game {
       this.#restart();
     }
   };
+
+  #handleControls(): void {
+    if (this.#stateMachine.state === 'start') {
+      this.#stateMachine.transitionTo('controls');
+      this.#render();
+    } else if (this.#stateMachine.state === 'controls') {
+      this.#stateMachine.transitionTo('start');
+      this.#render();
+    }
+  }
+
+  #handleBack(): void {
+    if (this.#stateMachine.state === 'controls') {
+      this.#stateMachine.transitionTo('start');
+      this.#render();
+    } else if (this.#stateMachine.state === 'playing' || this.#stateMachine.state === 'paused') {
+      this.#togglePause();
+    }
+  }
 
   #togglePause(): void {
     if (this.#stateMachine.state === 'playing') {
@@ -143,6 +164,12 @@ export class Game {
 
   #render(): void {
     this.#renderer.render(this.#snapshot(), this.#session?.snapshot());
+  }
+
+  #startNewSession(): void {
+    this.#session = new GameSession();
+    this.#stateMachine.transitionTo('playing');
+    this.#render();
   }
 
   #restart(): void {

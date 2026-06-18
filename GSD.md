@@ -6,7 +6,7 @@ A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e p
 
 ## Missão atual
 
-Executar a **Etapa 6 — Fases completas** do projeto **Labirinto Lumina**.
+Executar a **Etapa 7 — Telas, HUD e UX** do projeto **Labirinto Lumina**.
 
 ## Regra de autonomia
 
@@ -302,6 +302,24 @@ Fora do escopo desta etapa:
 Adicionar telas completas, pausa, HUD, instruções e fluxo visual.
 
 Tag: `v0.7.0`
+
+Entregas esperadas:
+
+- tela inicial com instruções claras;
+- tela de controles navegável por teclado;
+- pausa com overlay informativo;
+- tela de game over com fluxo de reinício;
+- tela de vitória com fechamento da campanha atual;
+- HUD revisado com fase, pontuação, vidas, fragmentos, pulso, sentinelas e atalhos;
+- testes unitários de estados, input e conteúdo de telas.
+
+Fora do escopo desta etapa:
+
+- áudio;
+- mute real;
+- high score local;
+- publicação via GitHub Pages;
+- release candidate.
 
 ### Etapa 8 — Áudio, polimento e high score
 

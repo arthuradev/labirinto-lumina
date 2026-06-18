@@ -90,12 +90,13 @@ Jogar.bat
 Status atual planejado:
 
 ```text
-v0.6.0 — Fases completas
+v0.7.0 — Telas, HUD e UX
 ```
 
 O projeto já possui tela inicial funcional em Canvas, game loop, máquina de estados,
 três fases originais navegáveis, movimento em grid, colisão com paredes, fragmentos de luz,
-nós de pulso, pontuação, progressão entre fases e sentinelas originais com comportamentos simples.
+nós de pulso, pontuação, progressão entre fases, sentinelas originais com comportamentos simples,
+tela de controles, pausa, game over, vitória e HUD revisado.
 
 Áudio, high score e publicação via GitHub Pages ainda não foram implementados.
 

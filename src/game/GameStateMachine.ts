@@ -3,6 +3,7 @@ import type { GameState } from '../core/types';
 export const GAME_STATES = [
   'boot',
   'start',
+  'controls',
   'playing',
   'paused',
   'level-complete',
@@ -12,7 +13,8 @@ export const GAME_STATES = [
 
 const STATE_TRANSITIONS: Record<GameState, readonly GameState[]> = {
   boot: ['start'],
-  start: ['playing'],
+  start: ['playing', 'controls'],
+  controls: ['start', 'playing'],
   playing: ['paused', 'level-complete', 'game-over', 'victory', 'start'],
   paused: ['playing', 'start'],
   'level-complete': ['victory', 'playing', 'start'],
@@ -37,7 +39,7 @@ export class GameStateMachine {
 
   transitionTo(nextState: GameState): GameState {
     if (!this.canTransitionTo(nextState)) {
-      throw new Error(`Transição inválida de "${this.#state}" para "${nextState}".`);
+      throw new Error(`Transicao invalida de "${this.#state}" para "${nextState}".`);
     }
 
     this.#state = nextState;

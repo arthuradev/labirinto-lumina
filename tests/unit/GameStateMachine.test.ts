@@ -9,11 +9,20 @@ describe('GameStateMachine', () => {
     expect(machine.state).toBe('boot');
   });
 
-  it('permite o fluxo inicial até playing', () => {
+  it('permite o fluxo inicial ate playing', () => {
     const machine = new GameStateMachine();
 
     expect(machine.transitionTo('start')).toBe('start');
     expect(machine.transitionTo('playing')).toBe('playing');
+  });
+
+  it('permite abrir controles antes de jogar', () => {
+    const machine = new GameStateMachine();
+
+    machine.transitionTo('start');
+
+    expect(machine.transitionTo('controls')).toBe('controls');
+    expect(machine.transitionTo('start')).toBe('start');
   });
 
   it('alterna entre playing e paused', () => {
@@ -26,7 +35,7 @@ describe('GameStateMachine', () => {
     expect(machine.transitionTo('playing')).toBe('playing');
   });
 
-  it('permite concluir fase e chegar à vitória', () => {
+  it('permite concluir fase e chegar a vitoria', () => {
     const machine = new GameStateMachine();
 
     machine.transitionTo('start');
@@ -36,11 +45,11 @@ describe('GameStateMachine', () => {
     expect(machine.transitionTo('victory')).toBe('victory');
   });
 
-  it('bloqueia transições inválidas', () => {
+  it('bloqueia transicoes invalidas', () => {
     const machine = new GameStateMachine();
 
     expect(() => machine.transitionTo('paused')).toThrow(
-      'Transição inválida de "boot" para "paused".',
+      'Transicao invalida de "boot" para "paused".',
     );
   });
 });

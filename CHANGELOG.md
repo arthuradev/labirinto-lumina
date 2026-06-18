@@ -11,6 +11,23 @@ O formato segue a ideia de manter um histórico legível por humanos, organizado
 - GitHub Pages.
 - Release v1.0.0.
 
+## [v0.7.0] — 2026-06-18
+
+### Adicionado
+
+- Estado visual `controls` para tela de controles navegável por teclado.
+- Ações de input para abrir controles com `C` e voltar/pausar com `Esc` ou `Backspace`.
+- Conteúdos de tela separados em `screens/` para início, controles, pausa, conclusão de fase, game over e vitória.
+- Renderização de telas com seções informativas e resumo de campanha quando há sessão ativa.
+- Overlay de pausa mais completo.
+- Overlay de conclusão de fase com pontuação e indicação do próximo passo.
+- HUD revisado com altura própria, fase, pontuação, vidas, fragmentos, pulso, sentinelas e atalhos principais.
+- Testes unitários para input, conteúdo de telas e fluxo da máquina de estados.
+
+### Observação
+
+Esta versão ainda não implementa áudio, mute real, high score ou publicação via GitHub Pages.
+
 ## [v0.6.0] — 2026-06-18
 
 ### Adicionado

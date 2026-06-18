@@ -43,7 +43,10 @@ Objetivo:
 
 ```text
 Setas direcionais ou WASD: mover
+Enter ou Espaço: iniciar/confirmar
+C: abrir/fechar controles na tela inicial
 P: pausar/despausar
+Esc ou Backspace: voltar dos controles ou pausar/despausar durante o jogo
 R: reiniciar após vitória, conclusão de fase ou game over
 ```
 
@@ -67,8 +70,10 @@ High score local
 ## Estados
 
 - início;
+- controles;
 - jogando;
 - pausado;
+- fase concluída;
 - game over;
 - vitória.
 

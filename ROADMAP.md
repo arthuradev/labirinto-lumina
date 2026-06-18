@@ -96,6 +96,8 @@ Objetivo:
 - HUD;
 - fluxo completo.
 
+Status: concluído.
+
 ### v0.8.0 — Áudio, polimento e high score
 
 Objetivo:

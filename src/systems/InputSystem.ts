@@ -2,6 +2,8 @@ import type { MovementDirection } from '../core/direction';
 
 export type InputAction =
   | { readonly type: 'confirm' }
+  | { readonly type: 'controls' }
+  | { readonly type: 'back' }
   | { readonly type: 'pause' }
   | { readonly type: 'restart' }
   | { readonly type: 'direction'; readonly direction: MovementDirection };
@@ -23,6 +25,14 @@ export class InputSystem {
 
     if (normalizedKey === 'enter' || normalizedKey === ' ') {
       return { type: 'confirm' };
+    }
+
+    if (normalizedKey === 'c') {
+      return { type: 'controls' };
+    }
+
+    if (normalizedKey === 'escape' || normalizedKey === 'backspace') {
+      return { type: 'back' };
     }
 
     if (normalizedKey === 'p') {

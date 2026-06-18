@@ -50,16 +50,17 @@ Game
 - `ScoreSystem` concentra pontuação, vidas e bônus.
 - `EnemyAISystem` move sentinelas com comportamentos simples e modo instável durante pulso.
 - `SentinelCollisionSystem` resolve perda de vida ou travessia pontuada durante pulso.
-- `screens/` descreve o conteúdo visual das telas.
+- `screens/` descreve o conteúdo visual das telas por estado.
 - `rendering/` desenha o estado recebido no Canvas.
 - `systems/` aplica regras.
 - `entities/` guarda estado.
 - `levels/` guarda dados de fase.
 - `core/` contém tipos e funções puras.
 
-Na versão `v0.6.0`, jogador, input, movimento, colisão, três fases navegáveis, coleta, pontuação,
-sentinelas e progressão real entre fases já existem. Áudio, high score, telas completas e publicação
-via GitHub Pages permanecem planejados para etapas futuras.
+Na versão `v0.7.0`, jogador, input, movimento, colisão, três fases navegáveis, coleta, pontuação,
+sentinelas, progressão real entre fases, tela de controles, pausa, game over, vitória e HUD revisado
+já existem. Áudio, high score e publicação via GitHub Pages permanecem planejados para etapas
+futuras.
 
 ## O que deve permanecer simples
 

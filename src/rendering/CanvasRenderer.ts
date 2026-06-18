@@ -1,10 +1,10 @@
 import type { GameSnapshot } from '../core/types';
 import { GAME_CONFIG } from '../game/GameConfig';
-import { getScreenContent } from '../screens/StartScreen';
+import { getScreenContent } from '../screens';
 import { drawCollectibles, drawPlayer, drawPowerNodes, drawSentinels } from './drawEntities';
-import { drawHud } from './drawHud';
+import { drawHud, HUD_HEIGHT } from './drawHud';
 import { drawMaze } from './drawMaze';
-import type { PlayfieldRenderState, RenderMetrics } from './RendererTypes';
+import type { PlayfieldRenderState, RenderMetrics, ScreenContent } from './RendererTypes';
 
 export class CanvasRenderer {
   readonly #canvas: HTMLCanvasElement;
@@ -17,7 +17,7 @@ export class CanvasRenderer {
     const context = canvas.getContext('2d');
 
     if (!context) {
-      throw new Error('Canvas 2D não está disponível neste navegador.');
+      throw new Error('Canvas 2D nao esta disponivel neste navegador.');
     }
 
     this.#canvas = canvas;
@@ -56,7 +56,7 @@ export class CanvasRenderer {
       return;
     }
 
-    this.#drawContent(snapshot);
+    this.#drawContent(snapshot, playfield);
   }
 
   #drawBackground(elapsedSeconds: number): void {
@@ -88,56 +88,49 @@ export class CanvasRenderer {
     }
   }
 
-  #drawContent(snapshot: GameSnapshot): void {
+  #drawContent(snapshot: GameSnapshot, playfield?: PlayfieldRenderState): void {
     const content = getScreenContent(snapshot.state);
     const centerX = this.#width / 2;
     const centerY = this.#height / 2;
-    const panelWidth = Math.min(760, this.#width - 40);
-    const panelHeight = Math.min(380, this.#height - 40);
+    const panelWidth = Math.min(820, this.#width - 32);
+    const panelHeight = Math.min(540, this.#height - 32);
     const panelX = centerX - panelWidth / 2;
     const panelY = centerY - panelHeight / 2;
 
-    this.#context.shadowColor = GAME_CONFIG.colors.shadow;
-    this.#context.shadowBlur = 30;
-    this.#context.fillStyle = GAME_CONFIG.colors.panel;
-    this.#roundRect(panelX, panelY, panelWidth, panelHeight, 8);
-    this.#context.fill();
-    this.#context.shadowBlur = 0;
+    this.#drawPanel(panelX, panelY, panelWidth, panelHeight);
 
-    this.#context.strokeStyle = 'rgba(114, 224, 216, 0.32)';
-    this.#context.lineWidth = 2;
-    this.#roundRect(panelX + 1, panelY + 1, panelWidth - 2, panelHeight - 2, 8);
-    this.#context.stroke();
-
-    this.#context.textAlign = 'center';
     this.#context.textBaseline = 'middle';
-
     this.#context.fillStyle = GAME_CONFIG.colors.accent;
     this.#context.font = '600 13px system-ui, sans-serif';
-    this.#context.fillText(`estado: ${content.state}`, centerX, panelY + 46);
+    this.#drawFittedText(
+      `estado: ${content.state}`,
+      centerX,
+      panelY + 42,
+      panelWidth - 56,
+      'center',
+    );
 
     this.#context.fillStyle = GAME_CONFIG.colors.text;
-    this.#context.font = '700 42px system-ui, sans-serif';
-    this.#context.fillText(content.title, centerX, panelY + 104);
+    this.#context.font = '700 40px system-ui, sans-serif';
+    this.#drawFittedText(content.title, centerX, panelY + 96, panelWidth - 56, 'center');
 
     this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
     this.#context.font = '500 18px system-ui, sans-serif';
-    this.#context.fillText(content.subtitle, centerX, panelY + 148);
+    this.#drawFittedText(content.subtitle, centerX, panelY + 138, panelWidth - 56, 'center');
 
     this.#context.fillStyle = GAME_CONFIG.colors.warmAccent;
     this.#context.font = '600 20px system-ui, sans-serif';
-    this.#context.fillText(content.status, centerX, panelY + 204);
+    this.#drawFittedText(content.status, centerX, panelY + 184, panelWidth - 56, 'center');
 
     this.#context.fillStyle = GAME_CONFIG.colors.text;
     this.#context.font = '600 18px system-ui, sans-serif';
-    this.#context.fillText(content.action, centerX, panelY + 252);
+    this.#drawFittedText(content.action, centerX, panelY + 226, panelWidth - 56, 'center');
 
-    this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
-    this.#context.font = '400 15px system-ui, sans-serif';
+    this.#drawContentDetails(content, panelX, panelY, panelWidth, panelHeight);
 
-    content.details.forEach((detail, index) => {
-      this.#context.fillText(detail, centerX, panelY + 300 + index * 24);
-    });
+    if (playfield) {
+      this.#drawSessionSummary(playfield, panelX, panelY + panelHeight - 82, panelWidth);
+    }
 
     this.#context.textAlign = 'right';
     this.#context.fillStyle = 'rgba(245, 251, 248, 0.62)';
@@ -195,15 +188,16 @@ export class CanvasRenderer {
   }
 
   #getPlayfieldMetrics(playfield: PlayfieldRenderState): RenderMetrics {
+    const topMargin = HUD_HEIGHT + 14;
     const maxTileWidth = (this.#width - 48) / playfield.level.width;
-    const maxTileHeight = (this.#height - 100) / playfield.level.height;
+    const maxTileHeight = (this.#height - topMargin - 24) / playfield.level.height;
     const tileSize = Math.max(14, Math.floor(Math.min(maxTileWidth, maxTileHeight)));
     const mazeWidth = playfield.level.width * tileSize;
     const mazeHeight = playfield.level.height * tileSize;
 
     return {
       offsetX: Math.floor((this.#width - mazeWidth) / 2),
-      offsetY: Math.floor(70 + (this.#height - 90 - mazeHeight) / 2),
+      offsetY: Math.floor(topMargin + (this.#height - topMargin - 14 - mazeHeight) / 2),
       tileSize,
     };
   }
@@ -211,16 +205,7 @@ export class CanvasRenderer {
   #drawPauseOverlay(): void {
     this.#context.fillStyle = 'rgba(6, 16, 21, 0.62)';
     this.#context.fillRect(0, 0, this.#width, this.#height);
-
-    this.#context.textAlign = 'center';
-    this.#context.textBaseline = 'middle';
-    this.#context.fillStyle = GAME_CONFIG.colors.text;
-    this.#context.font = '700 38px system-ui, sans-serif';
-    this.#context.fillText('Pausado', this.#width / 2, this.#height / 2 - 16);
-
-    this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
-    this.#context.font = '500 17px system-ui, sans-serif';
-    this.#context.fillText('Pressione P para continuar.', this.#width / 2, this.#height / 2 + 28);
+    this.#drawOverlayContent(getScreenContent('paused'));
   }
 
   #drawLevelCompleteOverlay(
@@ -228,32 +213,155 @@ export class CanvasRenderer {
     currentLevelNumber: number,
     totalLevelCount: number,
   ): void {
+    const nextAction =
+      currentLevelNumber < totalLevelCount
+        ? 'Enter abre o proximo circuito.'
+        : 'Enter mostra a vitoria.';
+
     this.#context.fillStyle = 'rgba(6, 16, 21, 0.68)';
     this.#context.fillRect(0, 0, this.#width, this.#height);
+    this.#drawOverlayContent(getScreenContent('level-complete'), [
+      `fase ${currentLevelNumber}/${totalLevelCount}`,
+      `pontos ${score}`,
+      nextAction,
+    ]);
+  }
 
-    this.#context.textAlign = 'center';
-    this.#context.textBaseline = 'middle';
-    this.#context.fillStyle = GAME_CONFIG.colors.warmAccent;
-    this.#context.font = '700 38px system-ui, sans-serif';
-    this.#context.fillText('Circuito concluído', this.#width / 2, this.#height / 2 - 34);
+  #drawPanel(x: number, y: number, width: number, height: number): void {
+    this.#context.shadowColor = GAME_CONFIG.colors.shadow;
+    this.#context.shadowBlur = 30;
+    this.#context.fillStyle = GAME_CONFIG.colors.panel;
+    this.#roundRect(x, y, width, height, 8);
+    this.#context.fill();
+    this.#context.shadowBlur = 0;
 
-    this.#context.fillStyle = GAME_CONFIG.colors.text;
-    this.#context.font = '600 20px system-ui, sans-serif';
-    this.#context.fillText(
-      `Fase ${currentLevelNumber}/${totalLevelCount} · Pontuação: ${score}`,
-      this.#width / 2,
-      this.#height / 2 + 8,
-    );
+    this.#context.strokeStyle = 'rgba(114, 224, 216, 0.32)';
+    this.#context.lineWidth = 2;
+    this.#roundRect(x + 1, y + 1, width - 2, height - 2, 8);
+    this.#context.stroke();
+  }
+
+  #drawContentDetails(
+    content: ScreenContent,
+    panelX: number,
+    panelY: number,
+    panelWidth: number,
+    panelHeight: number,
+  ): void {
+    const compact = panelHeight < 400;
+    const startY = compact ? panelY + panelHeight - 76 : panelY + 276;
 
     this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
-    this.#context.font = '500 16px system-ui, sans-serif';
-    this.#context.fillText(
-      currentLevelNumber < totalLevelCount
-        ? 'Pressione Enter para abrir o próximo circuito.'
-        : 'Pressione Enter para ver a vitória.',
-      this.#width / 2,
-      this.#height / 2 + 46,
-    );
+    this.#context.font = '400 15px system-ui, sans-serif';
+
+    content.details.slice(0, compact ? 2 : 4).forEach((detail, index) => {
+      this.#drawFittedText(
+        detail,
+        panelX + panelWidth / 2,
+        startY + index * 24,
+        panelWidth - 60,
+        'center',
+      );
+    });
+
+    const sections = content.sections ?? [];
+
+    if (compact || sections.length === 0) {
+      return;
+    }
+
+    const columnCount = Math.min(3, sections.length);
+    const columnWidth = (panelWidth - 76) / columnCount;
+    const sectionY = startY + Math.max(content.details.length, 1) * 26 + 10;
+
+    sections.forEach((section, index) => {
+      const column = index % columnCount;
+      const row = Math.floor(index / columnCount);
+      const x = panelX + 38 + column * columnWidth;
+      const y = sectionY + row * 108;
+
+      this.#context.fillStyle = GAME_CONFIG.colors.accent;
+      this.#context.font = '700 14px system-ui, sans-serif';
+      this.#drawFittedText(section.title, x, y, columnWidth - 14, 'left');
+
+      this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
+      this.#context.font = '400 13px system-ui, sans-serif';
+
+      section.lines.forEach((line, lineIndex) => {
+        this.#drawFittedText(`- ${line}`, x, y + 24 + lineIndex * 19, columnWidth - 14, 'left');
+      });
+    });
+  }
+
+  #drawSessionSummary(playfield: PlayfieldRenderState, x: number, y: number, width: number): void {
+    const summary = [
+      `fase ${playfield.currentLevelNumber}/${playfield.totalLevelCount}`,
+      playfield.level.name,
+      `pontos ${playfield.score.score}`,
+      `vidas ${playfield.score.lives}`,
+    ].join(' | ');
+
+    this.#context.fillStyle = 'rgba(240, 201, 120, 0.92)';
+    this.#context.font = '600 14px system-ui, sans-serif';
+    this.#drawFittedText(summary, x + width / 2, y, width - 60, 'center');
+  }
+
+  #drawOverlayContent(content: ScreenContent, extraLines: readonly string[] = []): void {
+    const panelWidth = Math.min(560, this.#width - 40);
+    const panelHeight = Math.min(300, this.#height - 40);
+    const panelX = (this.#width - panelWidth) / 2;
+    const panelY = (this.#height - panelHeight) / 2;
+    const centerX = this.#width / 2;
+
+    this.#drawPanel(panelX, panelY, panelWidth, panelHeight);
+
+    this.#context.textBaseline = 'middle';
+    this.#context.fillStyle = GAME_CONFIG.colors.warmAccent;
+    this.#context.font = '700 34px system-ui, sans-serif';
+    this.#drawFittedText(content.title, centerX, panelY + 56, panelWidth - 48, 'center');
+
+    this.#context.fillStyle = GAME_CONFIG.colors.text;
+    this.#context.font = '600 17px system-ui, sans-serif';
+    this.#drawFittedText(content.status, centerX, panelY + 98, panelWidth - 48, 'center');
+
+    this.#context.fillStyle = GAME_CONFIG.colors.accent;
+    this.#context.font = '600 16px system-ui, sans-serif';
+    this.#drawFittedText(content.action, centerX, panelY + 134, panelWidth - 48, 'center');
+
+    const lines = [...extraLines, ...content.details];
+
+    this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
+    this.#context.font = '400 14px system-ui, sans-serif';
+
+    lines.slice(0, 5).forEach((line, index) => {
+      this.#drawFittedText(line, centerX, panelY + 178 + index * 22, panelWidth - 48, 'center');
+    });
+  }
+
+  #drawFittedText(
+    text: string,
+    x: number,
+    y: number,
+    maxWidth: number,
+    align: CanvasTextAlign,
+  ): void {
+    this.#context.textAlign = align;
+
+    if (this.#context.measureText(text).width <= maxWidth) {
+      this.#context.fillText(text, x, y);
+      return;
+    }
+
+    let fittedText = text;
+
+    while (
+      fittedText.length > 4 &&
+      this.#context.measureText(`${fittedText}...`).width > maxWidth
+    ) {
+      fittedText = fittedText.slice(0, -1);
+    }
+
+    this.#context.fillText(`${fittedText}...`, x, y);
   }
 
   #roundRect(x: number, y: number, width: number, height: number, radius: number): void {

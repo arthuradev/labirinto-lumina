@@ -14,6 +14,7 @@ Status: implementado desde `v0.3.0`.
 
 ```text
 Enter ou Espaço: iniciar/confirmar
+C: abrir/fechar controles na tela inicial
 P: pausar/despausar
 M: mutar/desmutar
 R: reiniciar após game over
@@ -23,9 +24,11 @@ Esc: voltar/pausar, se aplicável
 Status atual:
 
 - `Enter` ou `Espaço`: implementado para iniciar.
+- `C`: implementado para abrir/fechar a tela de controles no início.
 - `P`: implementado para pausar/despausar.
+- `Esc` ou `Backspace`: implementado para voltar dos controles e pausar/despausar durante o jogo.
 - `R`: implementado para reiniciar após vitória, conclusão de fase ou game over.
-- `M` e `Esc`: planejados para etapas futuras.
+- `M`: planejado para a etapa de áudio/mute.
 
 ## Requisitos de UX
 

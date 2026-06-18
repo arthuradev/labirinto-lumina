@@ -13,6 +13,12 @@ export interface ScreenContent {
   readonly status: string;
   readonly action: string;
   readonly details: readonly string[];
+  readonly sections?: readonly ScreenSection[];
+}
+
+export interface ScreenSection {
+  readonly title: string;
+  readonly lines: readonly string[];
 }
 
 export interface PlayfieldRenderState {

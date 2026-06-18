@@ -1,6 +1,7 @@
 export type GameState =
   | 'boot'
   | 'start'
+  | 'controls'
   | 'playing'
   | 'paused'
   | 'level-complete'
