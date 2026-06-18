@@ -11,6 +11,22 @@ O formato segue a ideia de manter um histórico legível por humanos, organizado
 - GitHub Pages.
 - Release v1.0.0.
 
+## [v0.8.0] — 2026-06-18
+
+### Adicionado
+
+- `AudioSystem` com efeitos sonoros originais sintetizados via Web Audio, sem assets externos.
+- Eventos sonoros para início, coleta de fragmentos, ativação de pulso, travessia de sentinela, dano, conclusão de fase, game over, vitória e novo recorde.
+- Ação de input para `M`, permitindo mutar e desmutar o áudio durante o jogo.
+- `HighScoreSystem` com persistência local em `localStorage` e tolerância a armazenamento indisponível.
+- Exibição de recorde local e estado do som no HUD e nos resumos de tela.
+- Eventos consumíveis em `GameSession` para comunicar acontecimentos de gameplay ao coordenador do jogo sem acoplar regras ao áudio.
+- Testes unitários para áudio, high score, input de mute e eventos de sessão.
+
+### Observação
+
+Esta versão ainda não implementa publicação via GitHub Pages, testes end-to-end completos ou release candidate.
+
 ## [v0.7.0] — 2026-06-18
 
 ### Adicionado

@@ -1,8 +1,10 @@
 import type { GameSnapshot } from '../core/types';
 import { CanvasRenderer } from '../rendering/CanvasRenderer';
+import { AudioSystem, type AudioEventName } from '../systems/AudioSystem';
+import { HighScoreSystem } from '../systems/HighScoreSystem';
 import { InputSystem } from '../systems/InputSystem';
 import { GameLoop } from './GameLoop';
-import { GameSession } from './GameSession';
+import { GameSession, type GameSessionEvent } from './GameSession';
 import { GameStateMachine } from './GameStateMachine';
 
 export interface GameOptions {
@@ -14,6 +16,8 @@ export class Game {
   readonly #renderer: CanvasRenderer;
   readonly #stateMachine = new GameStateMachine();
   readonly #inputSystem = new InputSystem();
+  readonly #audioSystem = new AudioSystem();
+  readonly #highScoreSystem = new HighScoreSystem(getBrowserStorage());
   readonly #loop: GameLoop;
   readonly #cleanupCallbacks: Array<() => void> = [];
 
@@ -55,10 +59,13 @@ export class Game {
 
     if (this.#stateMachine.state === 'playing') {
       const outcome = this.#session?.update(_deltaSeconds);
+      this.#handleSessionEvents(this.#session?.consumeEvents() ?? []);
 
       if (outcome === 'level-complete') {
+        this.#recordHighScoreFromSession(true);
         this.#stateMachine.transitionTo('level-complete');
       } else if (outcome === 'game-over') {
+        this.#recordHighScoreFromSession(true);
         this.#stateMachine.transitionTo('game-over');
       }
     }
@@ -71,6 +78,8 @@ export class Game {
       state: this.#stateMachine.state,
       elapsedSeconds: this.#elapsedSeconds,
       frame: this.#frame,
+      highScore: this.#highScoreSystem.highScore,
+      isAudioMuted: this.#audioSystem.isMuted,
     };
   }
 
@@ -105,6 +114,8 @@ export class Game {
       this.#handleControls();
     } else if (action.type === 'back') {
       this.#handleBack();
+    } else if (action.type === 'mute') {
+      this.#toggleMute();
     } else if (action.type === 'pause') {
       this.#togglePause();
     } else if (action.type === 'restart') {
@@ -119,8 +130,11 @@ export class Game {
       this.#startNewSession();
     } else if (this.#stateMachine.state === 'level-complete') {
       if (this.#session?.advanceToNextLevel()) {
+        this.#audioSystem.play('start');
         this.#stateMachine.transitionTo('playing');
       } else {
+        this.#recordHighScoreFromSession(true);
+        this.#audioSystem.play('victory');
         this.#stateMachine.transitionTo('victory');
       }
 
@@ -132,9 +146,11 @@ export class Game {
 
   #handleControls(): void {
     if (this.#stateMachine.state === 'start') {
+      this.#audioSystem.play('ui');
       this.#stateMachine.transitionTo('controls');
       this.#render();
     } else if (this.#stateMachine.state === 'controls') {
+      this.#audioSystem.play('ui');
       this.#stateMachine.transitionTo('start');
       this.#render();
     }
@@ -142,6 +158,7 @@ export class Game {
 
   #handleBack(): void {
     if (this.#stateMachine.state === 'controls') {
+      this.#audioSystem.play('ui');
       this.#stateMachine.transitionTo('start');
       this.#render();
     } else if (this.#stateMachine.state === 'playing' || this.#stateMachine.state === 'paused') {
@@ -151,12 +168,14 @@ export class Game {
 
   #togglePause(): void {
     if (this.#stateMachine.state === 'playing') {
+      this.#audioSystem.play('ui');
       this.#stateMachine.transitionTo('paused');
       this.#render();
       return;
     }
 
     if (this.#stateMachine.state === 'paused') {
+      this.#audioSystem.play('ui');
       this.#stateMachine.transitionTo('playing');
       this.#render();
     }
@@ -168,8 +187,29 @@ export class Game {
 
   #startNewSession(): void {
     this.#session = new GameSession();
+    this.#audioSystem.play('start');
     this.#stateMachine.transitionTo('playing');
     this.#render();
+  }
+
+  #toggleMute(): void {
+    this.#audioSystem.toggleMute();
+    this.#render();
+  }
+
+  #handleSessionEvents(events: readonly GameSessionEvent[]): void {
+    for (const event of events) {
+      this.#audioSystem.play(AUDIO_EVENTS[event]);
+    }
+  }
+
+  #recordHighScoreFromSession(playSound: boolean): void {
+    const score = this.#session?.snapshot().score.score ?? 0;
+    const result = this.#highScoreSystem.record(score);
+
+    if (playSound && result.wasUpdated) {
+      this.#audioSystem.play('high-score');
+    }
   }
 
   #restart(): void {
@@ -178,9 +218,27 @@ export class Game {
       this.#stateMachine.state === 'victory' ||
       this.#stateMachine.state === 'level-complete'
     ) {
+      this.#audioSystem.play('ui');
       this.#session = null;
       this.#stateMachine.transitionTo('start');
       this.#render();
     }
   }
 }
+
+const AUDIO_EVENTS: Record<GameSessionEvent, AudioEventName> = {
+  'fragment-collected': 'fragment',
+  'pulse-activated': 'pulse',
+  'sentinel-crossed': 'sentinel-crossed',
+  'player-hit': 'player-hit',
+  'level-complete': 'level-complete',
+  'game-over': 'game-over',
+};
+
+const getBrowserStorage = (): Storage | null => {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+};

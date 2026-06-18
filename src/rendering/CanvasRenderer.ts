@@ -128,9 +128,7 @@ export class CanvasRenderer {
 
     this.#drawContentDetails(content, panelX, panelY, panelWidth, panelHeight);
 
-    if (playfield) {
-      this.#drawSessionSummary(playfield, panelX, panelY + panelHeight - 82, panelWidth);
-    }
+    this.#drawGlobalSummary(snapshot, playfield, panelX, panelY + panelHeight - 82, panelWidth);
 
     this.#context.textAlign = 'right';
     this.#context.fillStyle = 'rgba(245, 251, 248, 0.62)';
@@ -293,12 +291,25 @@ export class CanvasRenderer {
     });
   }
 
-  #drawSessionSummary(playfield: PlayfieldRenderState, x: number, y: number, width: number): void {
+  #drawGlobalSummary(
+    snapshot: GameSnapshot,
+    playfield: PlayfieldRenderState | undefined,
+    x: number,
+    y: number,
+    width: number,
+  ): void {
+    const sessionParts = playfield
+      ? [
+          `fase ${playfield.currentLevelNumber}/${playfield.totalLevelCount}`,
+          playfield.level.name,
+          `pontos ${playfield.score.score}`,
+          `vidas ${playfield.score.lives}`,
+        ]
+      : [];
     const summary = [
-      `fase ${playfield.currentLevelNumber}/${playfield.totalLevelCount}`,
-      playfield.level.name,
-      `pontos ${playfield.score.score}`,
-      `vidas ${playfield.score.lives}`,
+      ...sessionParts,
+      `recorde ${snapshot.highScore}`,
+      `som ${snapshot.isAudioMuted ? 'off' : 'on'}`,
     ].join(' | ');
 
     this.#context.fillStyle = 'rgba(240, 201, 120, 0.92)';

@@ -43,6 +43,14 @@ describe('GameSession', () => {
     expect(nextLevel.score.fragmentsTotal).toBe(1);
   });
 
+  it('emite eventos de coleta e conclusao de fase', () => {
+    const session = new GameSession({ levels: TEST_LEVELS });
+
+    expect(completeCurrentLevel(session)).toBe('level-complete');
+    expect(session.consumeEvents()).toEqual(['fragment-collected', 'level-complete']);
+    expect(session.consumeEvents()).toEqual([]);
+  });
+
   it('não avança depois da última fase concluída', () => {
     const session = new GameSession({ levels: TEST_LEVELS });
 

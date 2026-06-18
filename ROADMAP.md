@@ -108,6 +108,8 @@ Objetivo:
 - high score local;
 - polimento de apresentação.
 
+Status: concluído.
+
 ### v0.9.0 — Release candidate
 
 Objetivo:

@@ -38,7 +38,14 @@ export const drawHud = (
 
   context.fillStyle = 'rgba(182, 205, 202, 0.72)';
   context.font = '500 12px system-ui, sans-serif';
-  drawFittedText(context, 'Setas/WASD mover | P/Esc pausar', 20, 64, width - 40, 'left');
+  drawFittedText(
+    context,
+    `Setas/WASD mover | P/Esc pausar | M som ${snapshot.isAudioMuted ? 'off' : 'on'}`,
+    20,
+    64,
+    width - 220,
+    'left',
+  );
 
   context.fillStyle = '#72e0d8';
   context.font = '500 13px ui-monospace, SFMono-Regular, Consolas, monospace';
@@ -55,6 +62,10 @@ export const drawHud = (
     160,
     'right',
   );
+
+  context.fillStyle = 'rgba(240, 201, 120, 0.88)';
+  context.font = '500 12px ui-monospace, SFMono-Regular, Consolas, monospace';
+  drawFittedText(context, `recorde ${snapshot.highScore}`, width - 20, 64, 180, 'right');
 };
 
 const getStatusLine = (

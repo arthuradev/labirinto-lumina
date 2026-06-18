@@ -12,6 +12,7 @@ describe('InputSystem', () => {
     expect(inputSystem.getActionForKey('Escape')).toEqual({ type: 'back' });
     expect(inputSystem.getActionForKey('Backspace')).toEqual({ type: 'back' });
     expect(inputSystem.getActionForKey('p')).toEqual({ type: 'pause' });
+    expect(inputSystem.getActionForKey('m')).toEqual({ type: 'mute' });
     expect(inputSystem.getActionForKey('r')).toEqual({ type: 'restart' });
   });
 

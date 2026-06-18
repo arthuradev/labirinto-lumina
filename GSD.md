@@ -6,7 +6,7 @@ A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e p
 
 ## Missão atual
 
-Executar a **Etapa 7 — Telas, HUD e UX** do projeto **Labirinto Lumina**.
+Executar a **Etapa 8 — Áudio, polimento e high score** do projeto **Labirinto Lumina**.
 
 ## Regra de autonomia
 
@@ -326,6 +326,24 @@ Fora do escopo desta etapa:
 Adicionar sons originais/CC0, mute, high score local e polimento visual.
 
 Tag: `v0.8.0`
+
+Entregas esperadas:
+
+- sistema de áudio isolado usando sons originais;
+- efeitos sonoros para início, coleta, pulso, sentinelas, dano, conclusão de fase, game over e vitória;
+- tecla `M` para mutar/desmutar;
+- high score local persistido no navegador;
+- exibição de recorde e estado de som no HUD/telas;
+- polimento visual pontual sem alterar regras centrais;
+- testes unitários para áudio, high score, input e eventos de sessão.
+
+Fora do escopo desta etapa:
+
+- publicação via GitHub Pages;
+- testes end-to-end completos;
+- release candidate;
+- novas fases;
+- novas regras de gameplay.
 
 ### Etapa 9 — Testes, CI, GitHub Pages e release candidate
 

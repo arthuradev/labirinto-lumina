@@ -80,6 +80,9 @@ Sons devem ser:
 
 Proibido criar sons que imitem efeitos sonoros de jogos comerciais.
 
+Na versão `v0.8.0`, os efeitos sonoros são sintetizados em código via Web Audio. Nenhum arquivo de
+áudio externo foi adicionado ao projeto.
+
 ## 7. Visual
 
 Visual deve ser próprio.

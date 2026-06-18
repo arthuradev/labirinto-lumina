@@ -25,6 +25,14 @@ export interface GameSessionSnapshot {
   readonly isGameOver: boolean;
 }
 
+export type GameSessionEvent =
+  | 'fragment-collected'
+  | 'pulse-activated'
+  | 'sentinel-crossed'
+  | 'player-hit'
+  | 'level-complete'
+  | 'game-over';
+
 export type GameSessionOutcome = 'level-complete' | 'game-over' | null;
 
 export interface GameSessionOptions {
@@ -56,6 +64,7 @@ export class GameSession {
   #collectibles: Collectible[];
   #powerNodes: PowerNode[];
   #sentinels: Sentinel[];
+  #events: GameSessionEvent[] = [];
   #outcome: GameSessionOutcome = null;
 
   constructor(options: GameSessionOptions = {}) {
@@ -99,7 +108,16 @@ export class GameSession {
     this.#movementSystem.requestDirection(this.#player, direction);
   }
 
+  consumeEvents(): readonly GameSessionEvent[] {
+    const events = [...this.#events];
+    this.#events = [];
+
+    return events;
+  }
+
   update(deltaSeconds: number): GameSessionOutcome {
+    this.#events = [];
+
     if (this.#outcome) {
       return this.#outcome;
     }
@@ -118,8 +136,10 @@ export class GameSession {
 
     if (this.#scoreSystem.isLevelComplete()) {
       this.#scoreSystem.addLevelCompleteBonus();
+      this.#events.push('level-complete');
       this.#outcome = 'level-complete';
     } else if (this.#scoreSystem.isGameOver()) {
+      this.#events.push('game-over');
       this.#outcome = 'game-over';
     }
 
@@ -149,7 +169,12 @@ export class GameSession {
       this.#scoreSystem,
     );
 
+    if (result.collectedFragments > 0) {
+      this.#events.push('fragment-collected');
+    }
+
     if (result.activatedPowerNode) {
+      this.#events.push('pulse-activated');
       this.#player.pulseRemainingSeconds = result.activatedPowerNode.durationSeconds;
     }
   }
@@ -168,6 +193,12 @@ export class GameSession {
       this.#level,
       this.#scoreSystem,
     );
+
+    if (result === 'sentinel-crossed') {
+      this.#events.push('sentinel-crossed');
+    } else if (result === 'player-hit') {
+      this.#events.push('player-hit');
+    }
 
     if (result === 'player-hit' && !this.#scoreSystem.isGameOver()) {
       this.#resetActorsAfterHit();

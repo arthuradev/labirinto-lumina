@@ -4,6 +4,7 @@ export type InputAction =
   | { readonly type: 'confirm' }
   | { readonly type: 'controls' }
   | { readonly type: 'back' }
+  | { readonly type: 'mute' }
   | { readonly type: 'pause' }
   | { readonly type: 'restart' }
   | { readonly type: 'direction'; readonly direction: MovementDirection };
@@ -37,6 +38,10 @@ export class InputSystem {
 
     if (normalizedKey === 'p') {
       return { type: 'pause' };
+    }
+
+    if (normalizedKey === 'm') {
+      return { type: 'mute' };
     }
 
     if (normalizedKey === 'r') {

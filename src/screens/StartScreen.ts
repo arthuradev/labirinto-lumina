@@ -15,7 +15,7 @@ export const getStartScreenContent = (): ScreenContent => ({
   title: GAME_CONFIG.title,
   subtitle: GAME_CONFIG.subtitle,
   status: 'Campanha atual: tres circuitos originais.',
-  action: 'Enter ou clique inicia. C abre controles.',
+  action: 'Enter ou clique inicia. C abre controles. M alterna som.',
   details: [
     'Colete fragmentos, use nos de pulso e evite sentinelas.',
     'Pausar, voltar e reiniciar ja funcionam por teclado.',
@@ -30,7 +30,7 @@ export const getStartScreenContent = (): ScreenContent => ({
     },
     {
       title: 'Atalhos',
-      lines: ['Setas/WASD movem.', 'P ou Esc pausa.', 'R reinicia em telas finais.'],
+      lines: ['Setas/WASD movem.', 'P ou Esc pausa.', 'M alterna som.', 'R reinicia finais.'],
     },
   ],
 });

@@ -31,6 +31,8 @@ Game
   │    ├─ ScoreSystem
   │    ├─ EnemyAISystem
   │    └─ SentinelCollisionSystem
+  ├─ AudioSystem
+  ├─ HighScoreSystem
   └─ CanvasRenderer
         ↓
       Screens
@@ -50,6 +52,8 @@ Game
 - `ScoreSystem` concentra pontuação, vidas e bônus.
 - `EnemyAISystem` move sentinelas com comportamentos simples e modo instável durante pulso.
 - `SentinelCollisionSystem` resolve perda de vida ou travessia pontuada durante pulso.
+- `AudioSystem` sintetiza efeitos sonoros originais e controla mute sem depender de regras centrais.
+- `HighScoreSystem` persiste o recorde local sem acoplar pontuação ao navegador.
 - `screens/` descreve o conteúdo visual das telas por estado.
 - `rendering/` desenha o estado recebido no Canvas.
 - `systems/` aplica regras.
@@ -57,10 +61,10 @@ Game
 - `levels/` guarda dados de fase.
 - `core/` contém tipos e funções puras.
 
-Na versão `v0.7.0`, jogador, input, movimento, colisão, três fases navegáveis, coleta, pontuação,
+Na versão `v0.8.0`, jogador, input, movimento, colisão, três fases navegáveis, coleta, pontuação,
 sentinelas, progressão real entre fases, tela de controles, pausa, game over, vitória e HUD revisado
-já existem. Áudio, high score e publicação via GitHub Pages permanecem planejados para etapas
-futuras.
+já existem. Áudio original via Web Audio, mute com `M` e high score local também estão implementados.
+Publicação via GitHub Pages permanece planejada para etapa futura.
 
 ## O que deve permanecer simples
 

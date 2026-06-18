@@ -46,6 +46,7 @@ Setas direcionais ou WASD: mover
 Enter ou Espaço: iniciar/confirmar
 C: abrir/fechar controles na tela inicial
 P: pausar/despausar
+M: mutar/desmutar sons originais
 Esc ou Backspace: voltar dos controles ou pausar/despausar durante o jogo
 R: reiniciar após vitória, conclusão de fase ou game over
 ```
@@ -59,12 +60,7 @@ Fragmento de luz: +10
 Nó de pulso: +50
 Sentinela atravessada durante pulso: +200
 Conclusão de fase: bônus por vida restante
-```
-
-Planejado para etapas futuras:
-
-```text
-High score local
+Recorde local: salvo no navegador quando a pontuação supera o melhor resultado anterior
 ```
 
 ## Estados

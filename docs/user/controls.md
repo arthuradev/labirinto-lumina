@@ -1,6 +1,6 @@
 # Controles
 
-Controles atuais e planejados.
+Controles atuais.
 
 ## Movimento
 
@@ -28,7 +28,7 @@ Status atual:
 - `P`: implementado para pausar/despausar.
 - `Esc` ou `Backspace`: implementado para voltar dos controles e pausar/despausar durante o jogo.
 - `R`: implementado para reiniciar após vitória, conclusão de fase ou game over.
-- `M`: planejado para a etapa de áudio/mute.
+- `M`: implementado para mutar/desmutar sons originais.
 
 ## Requisitos de UX
 

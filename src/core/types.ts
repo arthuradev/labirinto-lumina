@@ -12,6 +12,8 @@ export interface GameSnapshot {
   readonly state: GameState;
   readonly elapsedSeconds: number;
   readonly frame: number;
+  readonly highScore: number;
+  readonly isAudioMuted: boolean;
 }
 
 export interface GridPosition {

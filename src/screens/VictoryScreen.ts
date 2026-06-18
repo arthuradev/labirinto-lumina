@@ -8,6 +8,6 @@ export const getVictoryScreenContent = (): ScreenContent => ({
   action: 'Enter ou R joga novamente.',
   details: [
     'Circuito Aurora, Malha Prisma e Nucleo Obsidiana estao completos.',
-    'Audio, polimento e high score entram no proximo marco.',
+    'O recorde local e atualizado quando sua pontuacao supera a anterior.',
   ],
 });

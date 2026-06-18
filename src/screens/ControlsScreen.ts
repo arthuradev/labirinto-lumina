@@ -24,6 +24,7 @@ export const getControlsScreenContent = (): ScreenContent => ({
       title: 'Durante o jogo',
       lines: [
         'P ou Esc: pausar/despausar.',
+        'M: mutar/desmutar sons originais.',
         'Nos de pulso deixam sentinelas instaveis.',
         'Complete as tres fases para vencer.',
       ],
