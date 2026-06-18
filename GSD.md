@@ -1,0 +1,226 @@
+# GSD.md — Get Stuff Done
+
+Este documento define o plano operacional atual para a IA.
+
+A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e parar ao final perguntando se pode avançar para a próxima etapa.
+
+## Missão atual
+
+Executar a **Etapa 1 — Fundação documental e técnica inicial** do projeto **Labirinto Lumina**.
+
+## Regra de autonomia
+
+O Codex pode executar comandos, criar arquivos, inicializar Git, criar repositório público, fazer commit, push e tag dentro da etapa atual.
+
+A única parada obrigatória é ao final da etapa, antes de avançar para a próxima.
+
+## Etapa 1 — Fundação documental e técnica inicial
+
+### Objetivo
+
+Criar a base profissional do projeto, sem implementar gameplay.
+
+A Etapa 1 deve entregar:
+
+- repositório Git inicializado;
+- repositório GitHub público criado;
+- documentação raiz criada;
+- documentação em `docs/` criada;
+- setup mínimo Vite + TypeScript;
+- tela provisória simples;
+- GitHub Actions inicial;
+- `Jogar.bat`;
+- commit inicial;
+- push;
+- tag `v0.1.0`.
+
+### Arquivos raiz esperados
+
+```text
+README.md
+AGENTS.md
+SDD.md
+GSD.md
+ARCHITECTURE.md
+ROADMAP.md
+CONTRIBUTING.md
+CHANGELOG.md
+SECURITY.md
+LICENSE
+package.json
+package-lock.json
+tsconfig.json
+vite.config.ts
+eslint.config.js
+prettier.config.js
+index.html
+Jogar.bat
+```
+
+### Pastas esperadas
+
+```text
+public/
+src/
+src/styles/
+tests/
+docs/
+docs/ai/
+docs/architecture/
+docs/architecture/adr/
+docs/legal/
+docs/user/
+docs/releases/
+.github/
+.github/workflows/
+```
+
+### Arquivos técnicos mínimos esperados
+
+```text
+src/main.ts
+src/styles/main.css
+.github/workflows/ci.yml
+```
+
+A tela provisória deve informar:
+
+```text
+Labirinto Lumina
+Projeto inicializado.
+Gameplay ainda não implementado.
+Desenvolvido integralmente por IA com GPT-5.5, sob direção humana.
+```
+
+### Validações da Etapa 1
+
+Depois de criar o setup técnico, rodar:
+
+```bash
+npm install
+npm run typecheck
+npm run lint
+npm run format:check
+npm run build
+```
+
+Se `npm run check` já existir, rodar também:
+
+```bash
+npm run check
+```
+
+### Commit esperado
+
+```text
+docs(planejamento): criar fundação documental e técnica inicial
+```
+
+Corpo recomendado:
+
+```text
+Cria a base inicial do projeto Labirinto Lumina.
+
+Inclui documentação principal, metodologia de desenvolvimento com IA,
+política de originalidade, planejamento de versões, arquitetura inicial,
+setup mínimo com Vite/TypeScript, tela provisória e validação automática.
+
+Esta etapa não implementa gameplay.
+```
+
+### Tag esperada
+
+```text
+v0.1.0
+```
+
+### Release esperada
+
+Título:
+
+```text
+v0.1.0 — Fundação documental e técnica inicial
+```
+
+Descrição:
+
+```text
+Primeiro marco do projeto Labirinto Lumina.
+
+Esta versão estabelece a fundação documental, técnica e metodológica do projeto:
+documentação raiz, política de originalidade, arquitetura planejada, metodologia IA-first, setup mínimo com Vite/TypeScript e CI inicial.
+
+Gameplay ainda não foi implementado.
+```
+
+### Relatório final obrigatório
+
+Ao terminar, informar:
+
+- arquivos criados;
+- comandos executados;
+- resultado das validações;
+- commit criado;
+- push realizado;
+- tag criada;
+- release criada, se criada;
+- link do repositório;
+- link do GitHub Pages, se já estiver disponível;
+- pendências;
+- pergunta: `Posso iniciar a Etapa 2?`
+
+## Próximas etapas planejadas
+
+### Etapa 2 — Núcleo técnico do jogo
+
+Criar estrutura interna, game loop, estado do jogo, canvas renderer e tela inicial funcional.
+
+Tag: `v0.2.0`
+
+### Etapa 3 — Movimento, labirinto e colisão
+
+Implementar jogador, input, movimento em grid, paredes e colisão.
+
+Tag: `v0.3.0`
+
+### Etapa 4 — Coleta, pontuação e fim de fase
+
+Implementar fragmentos de luz, nós de pulso, pontuação, vitória e derrota básica.
+
+Tag: `v0.4.0`
+
+### Etapa 5 — Sentinelas
+
+Implementar inimigos originais com comportamentos simples.
+
+Tag: `v0.5.0`
+
+### Etapa 6 — Fases completas
+
+Criar três fases originais e progressão de dificuldade.
+
+Tag: `v0.6.0`
+
+### Etapa 7 — Telas, HUD e UX
+
+Adicionar telas completas, pausa, HUD, instruções e fluxo visual.
+
+Tag: `v0.7.0`
+
+### Etapa 8 — Áudio, polimento e high score
+
+Adicionar sons originais/CC0, mute, high score local e polimento visual.
+
+Tag: `v0.8.0`
+
+### Etapa 9 — Testes, CI, GitHub Pages e release candidate
+
+Fortalecer testes, publicar via GitHub Pages e criar release candidate.
+
+Tag: `v0.9.0`
+
+### Etapa 10 — Revisão final e lançamento
+
+Revisar tudo, fechar documentação, criar release final.
+
+Tag: `v1.0.0`
