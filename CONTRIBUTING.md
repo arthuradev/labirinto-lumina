@@ -92,9 +92,10 @@ npm run lint
 npm run format:check
 npm run test
 npm run build
+npm run test:e2e
 ```
 
-Comando agregado planejado:
+Comando agregado:
 
 ```bash
 npm run check

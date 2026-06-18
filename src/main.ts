@@ -11,7 +11,7 @@ const canvas = document.createElement('canvas');
 canvas.className = 'lumina-canvas';
 canvas.setAttribute(
   'aria-label',
-  'Labirinto Lumina. Primeira fase navegável com coleta, pontuação e fim de fase básico.',
+  'Labirinto Lumina. Campanha jogável em Canvas com três fases, sentinelas, áudio e high score local.',
 );
 app.append(canvas);
 

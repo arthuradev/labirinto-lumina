@@ -55,7 +55,7 @@ Consulte:
 - [`docs/legal/originality-policy.md`](docs/legal/originality-policy.md)
 - [`docs/architecture/adr/0002-original-ip-policy.md`](docs/architecture/adr/0002-original-ip-policy.md)
 
-## Stack planejada
+## Stack
 
 - TypeScript
 - Vite
@@ -70,9 +70,11 @@ Consulte:
 
 ## Como jogar
 
-Quando publicado, o jogo poderá ser jogado via GitHub Pages.
+Online:
 
-Durante o desenvolvimento, a execução local será feita com:
+[Jogar Labirinto Lumina](https://arthuradev.github.io/labirinto-lumina/)
+
+Durante o desenvolvimento, a execução local pode ser feita com:
 
 ```bash
 npm install
@@ -85,21 +87,41 @@ Também haverá um inicializador simples para Windows:
 Jogar.bat
 ```
 
-## Status
-
-Status atual planejado:
+## Controles
 
 ```text
-v0.8.0 — Áudio, polimento e high score
+Setas direcionais ou WASD: mover
+Enter ou Espaço: iniciar/confirmar
+C: abrir/fechar controles na tela inicial
+P: pausar/despausar
+M: mutar/desmutar sons originais
+Esc ou Backspace: voltar ou pausar
+R: reiniciar após vitória, fase concluída ou game over
+```
+
+## Validação
+
+```bash
+npm run check
+```
+
+O comando principal executa typecheck, lint, verificação de formatação, testes unitários, build e smoke test end-to-end com Playwright.
+
+## Status
+
+Status atual:
+
+```text
+v0.9.0 — Release candidate
 ```
 
 O projeto já possui tela inicial funcional em Canvas, game loop, máquina de estados,
 três fases originais navegáveis, movimento em grid, colisão com paredes, fragmentos de luz,
 nós de pulso, pontuação, progressão entre fases, sentinelas originais com comportamentos simples,
 tela de controles, pausa, game over, vitória, HUD revisado, sons originais via Web Audio,
-mute com `M` e high score local.
+mute com `M`, high score local, CI fortalecida, smoke test no navegador e deploy via GitHub Pages.
 
-Publicação via GitHub Pages e release candidate ainda não foram implementados.
+Esta versão é um release candidate. A revisão final e o release público `v1.0.0` ainda serão feitos.
 
 ## Documentação principal
 
@@ -110,6 +132,8 @@ Publicação via GitHub Pages e release candidate ainda não foram implementados
 - [`ROADMAP.md`](ROADMAP.md) — caminho até v1.0.0
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — commits, branches e validações
 - [`CHANGELOG.md`](CHANGELOG.md) — histórico de versões
+- [`docs/releases/v0.9.0.md`](docs/releases/v0.9.0.md) — notas do release candidate
+- [`docs/legal/originality-review-v0.9.0.md`](docs/legal/originality-review-v0.9.0.md) — revisão de originalidade do RC
 
 ## Licença
 

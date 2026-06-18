@@ -121,6 +121,8 @@ Objetivo:
 - revisão de originalidade;
 - release candidate.
 
+Status: concluído.
+
 ### v1.0.0 — Versão final
 
 Objetivo:

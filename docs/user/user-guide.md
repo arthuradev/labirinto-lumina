@@ -8,9 +8,11 @@ Você controla uma luz dentro de circuitos escuros. O objetivo é coletar fragme
 
 ## Como jogar online
 
-Quando publicado, o jogo estará disponível via GitHub Pages.
+O jogo está disponível via GitHub Pages:
 
-O link será adicionado ao README.
+```text
+https://arthuradev.github.io/labirinto-lumina/
+```
 
 ## Como jogar localmente
 
@@ -21,7 +23,7 @@ npm install
 npm run dev
 ```
 
-Modo usuário Windows planejado:
+Modo usuário Windows:
 
 ```text
 Jogar.bat

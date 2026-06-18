@@ -61,10 +61,18 @@ Game
 - `levels/` guarda dados de fase.
 - `core/` contém tipos e funções puras.
 
-Na versão `v0.8.0`, jogador, input, movimento, colisão, três fases navegáveis, coleta, pontuação,
+Na versão `v0.9.0`, jogador, input, movimento, colisão, três fases navegáveis, coleta, pontuação,
 sentinelas, progressão real entre fases, tela de controles, pausa, game over, vitória e HUD revisado
 já existem. Áudio original via Web Audio, mute com `M` e high score local também estão implementados.
-Publicação via GitHub Pages permanece planejada para etapa futura.
+O projeto também possui smoke test end-to-end com Playwright, CI fortalecida e publicação via GitHub
+Pages.
+
+## Publicação e testes de navegador
+
+- `npm run test:e2e` roda um smoke test em Chromium via Playwright.
+- `npm run check` inclui o teste end-to-end além de typecheck, lint, format check, unit tests e build.
+- O workflow de GitHub Actions valida o projeto e, em pushes para `main`, publica o build estático em GitHub Pages.
+- O modo `pages` do Vite usa a base `/labirinto-lumina/` para servir assets corretamente no Pages.
 
 ## O que deve permanecer simples
 

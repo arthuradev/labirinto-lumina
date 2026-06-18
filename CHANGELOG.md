@@ -8,8 +8,29 @@ O formato segue a ideia de manter um histórico legível por humanos, organizado
 
 ### Planejado
 
-- GitHub Pages.
 - Release v1.0.0.
+
+## [v0.9.0] — 2026-06-18
+
+### Adicionado
+
+- Playwright configurado para smoke test no navegador.
+- Comando `npm run test:e2e` para validar carregamento, renderização do Canvas, fluxo principal de teclado e ausência de erros graves no console.
+- `npm run check` expandido para incluir o teste end-to-end.
+- GitHub Actions fortalecida com instalação do navegador do Playwright, validação completa e deploy para GitHub Pages.
+- Build de Pages com base `/labirinto-lumina/` usando modo dedicado do Vite.
+- Notas do release candidate em `docs/releases/v0.9.0.md`.
+- Revisão de originalidade do release candidate em `docs/legal/originality-review-v0.9.0.md`.
+
+### Alterado
+
+- README atualizado para status de release candidate, link de GitHub Pages e comandos de validação.
+- Guia do usuário atualizado com o link online.
+- Documentação de arquitetura atualizada para refletir testes end-to-end, CI e publicação.
+
+### Observação
+
+Esta versão é um release candidate. A revisão final, documentação final e release pública `v1.0.0` permanecem para a Etapa 10.
 
 ## [v0.8.0] — 2026-06-18
 

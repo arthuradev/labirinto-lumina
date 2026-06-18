@@ -6,7 +6,7 @@ A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e p
 
 ## Missão atual
 
-Executar a **Etapa 8 — Áudio, polimento e high score** do projeto **Labirinto Lumina**.
+Executar a **Etapa 9 — Testes, CI, GitHub Pages e release candidate** do projeto **Labirinto Lumina**.
 
 ## Regra de autonomia
 
@@ -350,6 +350,27 @@ Fora do escopo desta etapa:
 Fortalecer testes, publicar via GitHub Pages e criar release candidate.
 
 Tag: `v0.9.0`
+
+Entregas esperadas:
+
+- Playwright configurado para smoke test no navegador;
+- comando `npm run test:e2e`;
+- `npm run check` incluindo teste end-to-end;
+- GitHub Actions fortalecida com validações e deploy para GitHub Pages;
+- build com base correta para Pages;
+- README praticamente final com link para jogar;
+- revisão de originalidade para o release candidate;
+- notas de release candidate;
+- tag `v0.9.0`;
+- release candidate no GitHub.
+
+Fora do escopo desta etapa:
+
+- novas regras de gameplay;
+- novas fases;
+- assets externos;
+- release final `v1.0.0`;
+- alterações de arquitetura sem ADR.
 
 ### Etapa 10 — Revisão final e lançamento
 

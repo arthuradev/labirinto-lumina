@@ -27,5 +27,49 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
+      - name: Instalar navegador do Playwright
+        run: npx playwright install --with-deps chromium
+
       - name: Rodar validacoes
         run: npm run check
+
+  deploy-pages:
+    name: Publicar GitHub Pages
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Gerar build para Pages
+        run: npm run build -- --mode pages
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Enviar artefato estatico
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Publicar Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
