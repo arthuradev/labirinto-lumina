@@ -11,7 +11,7 @@ const canvas = document.createElement('canvas');
 canvas.className = 'lumina-canvas';
 canvas.setAttribute(
   'aria-label',
-  'Labirinto Lumina. Tela inicial funcional. Gameplay ainda não implementado.',
+  'Labirinto Lumina. Primeira fase navegável com movimento em grid e colisão com paredes.',
 );
 app.append(canvas);
 

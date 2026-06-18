@@ -1,6 +1,8 @@
 import type { GameSnapshot } from '../core/types';
 import { CanvasRenderer } from '../rendering/CanvasRenderer';
+import { InputSystem } from '../systems/InputSystem';
 import { GameLoop } from './GameLoop';
+import { GameSession } from './GameSession';
 import { GameStateMachine } from './GameStateMachine';
 
 export interface GameOptions {
@@ -11,9 +13,11 @@ export class Game {
   readonly #canvas: HTMLCanvasElement;
   readonly #renderer: CanvasRenderer;
   readonly #stateMachine = new GameStateMachine();
+  readonly #inputSystem = new InputSystem();
   readonly #loop: GameLoop;
   readonly #cleanupCallbacks: Array<() => void> = [];
 
+  #session: GameSession | null = null;
   #frame = 0;
   #elapsedSeconds = 0;
   #isStarted = false;
@@ -31,7 +35,7 @@ export class Game {
       this.#isStarted = true;
     }
 
-    this.#renderer.render(this.#snapshot());
+    this.#render();
     this.#loop.start();
   }
 
@@ -48,7 +52,12 @@ export class Game {
   #update = (_deltaSeconds: number, elapsedSeconds: number): void => {
     this.#elapsedSeconds = elapsedSeconds;
     this.#frame += 1;
-    this.#renderer.render(this.#snapshot());
+
+    if (this.#stateMachine.state === 'playing') {
+      this.#session?.update(_deltaSeconds);
+    }
+
+    this.#render();
   };
 
   #snapshot(): GameSnapshot {
@@ -72,39 +81,49 @@ export class Game {
   }
 
   #handleResize = (): void => {
-    this.#renderer.render(this.#snapshot());
+    this.#render();
   };
 
   #handleKeyDown = (event: KeyboardEvent): void => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      this.#handleConfirm();
+    const action = this.#inputSystem.getActionForKey(event.key);
+
+    if (!action) {
       return;
     }
 
-    if (event.key.toLowerCase() === 'p') {
-      event.preventDefault();
+    event.preventDefault();
+
+    if (action.type === 'confirm') {
+      this.#handleConfirm();
+    } else if (action.type === 'pause') {
       this.#togglePause();
+    } else if (this.#stateMachine.state === 'playing') {
+      this.#session?.requestDirection(action.direction);
     }
   };
 
   #handleConfirm = (): void => {
     if (this.#stateMachine.state === 'start') {
+      this.#session = new GameSession();
       this.#stateMachine.transitionTo('playing');
-      this.#renderer.render(this.#snapshot());
+      this.#render();
     }
   };
 
   #togglePause(): void {
     if (this.#stateMachine.state === 'playing') {
       this.#stateMachine.transitionTo('paused');
-      this.#renderer.render(this.#snapshot());
+      this.#render();
       return;
     }
 
     if (this.#stateMachine.state === 'paused') {
       this.#stateMachine.transitionTo('playing');
-      this.#renderer.render(this.#snapshot());
+      this.#render();
     }
+  }
+
+  #render(): void {
+    this.#renderer.render(this.#snapshot(), this.#session?.snapshot());
   }
 }

@@ -12,3 +12,13 @@ export interface GameSnapshot {
   readonly elapsedSeconds: number;
   readonly frame: number;
 }
+
+export interface GridPosition {
+  readonly x: number;
+  readonly y: number;
+}
+
+export interface WorldPosition {
+  readonly x: number;
+  readonly y: number;
+}

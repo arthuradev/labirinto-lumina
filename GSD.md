@@ -6,7 +6,7 @@ A IA deve seguir a etapa atual, executar tudo de forma autônoma dentro dela e p
 
 ## Missão atual
 
-Executar a **Etapa 2 — Núcleo técnico do jogo** do projeto **Labirinto Lumina**.
+Executar a **Etapa 3 — Movimento, labirinto e colisão** do projeto **Labirinto Lumina**.
 
 ## Regra de autonomia
 
@@ -204,6 +204,24 @@ Fora do escopo desta etapa:
 Implementar jogador, input, movimento em grid, paredes e colisão.
 
 Tag: `v0.3.0`
+
+Entregas esperadas:
+
+- jogador representado como entidade própria;
+- input isolado para setas e WASD;
+- movimento em grid com animação suave;
+- colisão com paredes isolada em sistema próprio;
+- primeira fase original navegável;
+- renderização do labirinto e do jogador no Canvas;
+- testes unitários de fase, colisão e movimento.
+
+Fora do escopo desta etapa:
+
+- fragmentos de luz;
+- nós de pulso;
+- pontuação;
+- sentinelas;
+- condições reais de vitória ou derrota.
 
 ### Etapa 4 — Coleta, pontuação e fim de fase
 

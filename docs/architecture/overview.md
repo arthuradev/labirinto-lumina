@@ -23,6 +23,10 @@ main.ts
 Game
   ├─ GameLoop
   ├─ GameStateMachine
+  ├─ GameSession
+  │    ├─ InputSystem
+  │    ├─ MovementSystem
+  │    └─ CollisionSystem
   └─ CanvasRenderer
         ↓
       Screens
@@ -34,6 +38,10 @@ Game
 - `Game` coordena.
 - `GameLoop` controla tempo.
 - `GameStateMachine` controla telas/estados.
+- `GameSession` mantém o estado da fase atual.
+- `InputSystem` traduz teclas em intenções de jogo.
+- `MovementSystem` move o jogador em grid.
+- `CollisionSystem` bloqueia paredes e limites.
 - `screens/` descreve o conteúdo visual das telas.
 - `rendering/` desenha o estado recebido no Canvas.
 - `systems/` aplica regras.
@@ -41,8 +49,8 @@ Game
 - `levels/` guarda dados de fase.
 - `core/` contém tipos e funções puras.
 
-Na versão `v0.2.0`, `systems/`, `entities/` e `levels/` ainda são arquitetura planejada.
-Eles entram quando movimento, colisão, coleta, sentinelas e fases forem implementados.
+Na versão `v0.3.0`, jogador, input, movimento, colisão e primeira fase navegável já existem.
+Coleta, pontuação, sentinelas e progressão de fases permanecem planejados para etapas futuras.
 
 ## O que deve permanecer simples
 

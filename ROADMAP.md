@@ -48,6 +48,8 @@ Objetivo:
 - implementar colisão com paredes;
 - criar primeira fase navegável.
 
+Status: concluído.
+
 ### v0.4.0 — Coleta, pontuação e condições de fim
 
 Objetivo:

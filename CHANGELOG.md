@@ -8,12 +8,30 @@ O formato segue a ideia de manter um histórico legível por humanos, organizado
 
 ### Planejado
 
-- Movimento em grid.
 - Coleta e pontuação.
 - Sentinelas.
 - Três fases originais.
 - GitHub Pages.
 - Release v1.0.0.
+
+## [v0.3.0] — 2026-06-18
+
+### Adicionado
+
+- Entidade inicial do jogador.
+- Sistema de input para setas direcionais e WASD.
+- Movimento em grid com interpolação visual suave.
+- Sistema de colisão com paredes.
+- Primeira fase original navegável, `Circuito Aurora`.
+- Formato inicial de fase declarativa.
+- Renderização do labirinto e da Lumina no Canvas.
+- HUD mínimo com nome da fase e controles principais.
+- Testes unitários para fase, colisão e movimento.
+
+### Observação
+
+Esta versão ainda não implementa fragmentos de luz, nós de pulso, pontuação, sentinelas,
+vitória ou derrota.
 
 ## [v0.2.0] — 2026-06-18
 

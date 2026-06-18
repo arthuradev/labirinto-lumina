@@ -18,21 +18,18 @@ export const getScreenContent = (state: GameState): ScreenContent => {
         state,
         title: GAME_CONFIG.title,
         subtitle: GAME_CONFIG.subtitle,
-        status: 'Núcleo técnico pronto.',
+        status: 'Primeira fase navegável pronta.',
         action: 'Pressione Enter ou clique para iniciar.',
-        details: [
-          'Tela inicial funcional no Canvas.',
-          'Movimento, labirinto e colisão entram na Etapa 3.',
-        ],
+        details: ['Use setas ou WASD para mover a Lumina.', 'Colisão com paredes já está ativa.'],
       };
     case 'playing':
       return {
         state,
-        title: 'Núcleo em execução',
-        subtitle: 'Estado playing ativo.',
-        status: 'A partida ainda não possui gameplay.',
+        title: 'Circuito ativo',
+        subtitle: 'Movimento em grid habilitado.',
+        status: 'Coleta e sentinelas entram nas próximas etapas.',
         action: 'Pressione P para pausar.',
-        details: ['O loop principal está rodando.', 'Renderização e estado já estão separados.'],
+        details: ['Setas ou WASD movem a Lumina.', 'Paredes bloqueiam o deslocamento.'],
       };
     case 'paused':
       return {

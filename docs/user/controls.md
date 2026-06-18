@@ -1,12 +1,14 @@
 # Controles
 
-Controles planejados para a versão final.
+Controles atuais e planejados.
 
 ## Movimento
 
 ```text
 Setas direcionais ou WASD
 ```
+
+Status: implementado desde `v0.3.0`.
 
 ## Ações
 
@@ -17,6 +19,12 @@ M: mutar/desmutar
 R: reiniciar após game over
 Esc: voltar/pausar, se aplicável
 ```
+
+Status atual:
+
+- `Enter` ou `Espaço`: implementado para iniciar.
+- `P`: implementado para pausar/despausar.
+- `M`, `R` e `Esc`: planejados para etapas futuras.
 
 ## Requisitos de UX
 

@@ -90,11 +90,13 @@ Jogar.bat
 Status atual planejado:
 
 ```text
-v0.2.0 — Núcleo técnico do jogo
+v0.3.0 — Movimento, labirinto e colisão
 ```
 
-O projeto já possui tela inicial funcional em Canvas, game loop e máquina de estados.
-Movimento, labirinto e colisão ainda não foram implementados.
+O projeto já possui tela inicial funcional em Canvas, game loop, máquina de estados,
+primeira fase original navegável, movimento em grid e colisão com paredes.
+
+Coleta, pontuação, sentinelas e condições finais ainda não foram implementadas.
 
 ## Documentação principal
 

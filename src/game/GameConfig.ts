@@ -5,6 +5,9 @@ export const GAME_CONFIG = {
     minWidth: 320,
     minHeight: 240,
   },
+  player: {
+    speedTilesPerSecond: 6,
+  },
   colors: {
     background: '#061015',
     backgroundDeep: '#0b171c',

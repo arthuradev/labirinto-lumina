@@ -1,6 +1,10 @@
 import type { GameSnapshot } from '../core/types';
 import { GAME_CONFIG } from '../game/GameConfig';
 import { getScreenContent } from '../screens/StartScreen';
+import { drawPlayer } from './drawEntities';
+import { drawHud } from './drawHud';
+import { drawMaze } from './drawMaze';
+import type { PlayfieldRenderState, RenderMetrics } from './RendererTypes';
 
 export class CanvasRenderer {
   readonly #canvas: HTMLCanvasElement;
@@ -38,9 +42,15 @@ export class CanvasRenderer {
     this.#context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   }
 
-  render(snapshot: GameSnapshot): void {
+  render(snapshot: GameSnapshot, playfield?: PlayfieldRenderState): void {
     this.resize();
     this.#drawBackground(snapshot.elapsedSeconds);
+
+    if (playfield && (snapshot.state === 'playing' || snapshot.state === 'paused')) {
+      this.#drawPlayfield(snapshot, playfield);
+      return;
+    }
+
     this.#drawContent(snapshot);
   }
 
@@ -128,6 +138,47 @@ export class CanvasRenderer {
     this.#context.fillStyle = 'rgba(245, 251, 248, 0.62)';
     this.#context.font = '400 12px ui-monospace, SFMono-Regular, Consolas, monospace';
     this.#context.fillText(`frame ${snapshot.frame}`, this.#width - 18, this.#height - 18);
+  }
+
+  #drawPlayfield(snapshot: GameSnapshot, playfield: PlayfieldRenderState): void {
+    const metrics = this.#getPlayfieldMetrics(playfield);
+
+    drawMaze(this.#context, playfield.level, metrics);
+    drawPlayer(this.#context, playfield.player, playfield.level, metrics, snapshot.elapsedSeconds);
+    drawHud(this.#context, snapshot, playfield.level, this.#width);
+
+    if (snapshot.state === 'paused') {
+      this.#drawPauseOverlay();
+    }
+  }
+
+  #getPlayfieldMetrics(playfield: PlayfieldRenderState): RenderMetrics {
+    const maxTileWidth = (this.#width - 48) / playfield.level.width;
+    const maxTileHeight = (this.#height - 100) / playfield.level.height;
+    const tileSize = Math.max(14, Math.floor(Math.min(maxTileWidth, maxTileHeight)));
+    const mazeWidth = playfield.level.width * tileSize;
+    const mazeHeight = playfield.level.height * tileSize;
+
+    return {
+      offsetX: Math.floor((this.#width - mazeWidth) / 2),
+      offsetY: Math.floor(70 + (this.#height - 90 - mazeHeight) / 2),
+      tileSize,
+    };
+  }
+
+  #drawPauseOverlay(): void {
+    this.#context.fillStyle = 'rgba(6, 16, 21, 0.62)';
+    this.#context.fillRect(0, 0, this.#width, this.#height);
+
+    this.#context.textAlign = 'center';
+    this.#context.textBaseline = 'middle';
+    this.#context.fillStyle = GAME_CONFIG.colors.text;
+    this.#context.font = '700 38px system-ui, sans-serif';
+    this.#context.fillText('Pausado', this.#width / 2, this.#height / 2 - 16);
+
+    this.#context.fillStyle = GAME_CONFIG.colors.mutedText;
+    this.#context.font = '500 17px system-ui, sans-serif';
+    this.#context.fillText('Pressione P para continuar.', this.#width / 2, this.#height / 2 + 28);
   }
 
   #roundRect(x: number, y: number, width: number, height: number, radius: number): void {
